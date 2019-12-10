@@ -18,9 +18,8 @@ public class EditorPane extends JRootPane implements EditorView {
 	private static final long serialVersionUID = -1110668399927786993L;
 	private JTextArea editorArea;
 	private AbstractButton newFileButton;
-	private AbstractButton saveButton;
-	private AbstractButton loadFileButton;
 	private AbstractButton saveFileButton;
+	private AbstractButton loadFileButton;
 	private AbstractButton exitButton;
 	private AbstractButton volatileStrategyButton;
 	private AbstractButton stableStrategyButton;
@@ -70,14 +69,11 @@ public class EditorPane extends JRootPane implements EditorView {
 		newFileButton = new JMenuItem("New file");
 		menu.add(newFileButton);
 
-		saveButton = new JMenuItem("Save");
-		menu.add(saveButton);
-
-		loadFileButton = new JMenuItem("Load file");
-		menu.add(loadFileButton);
-
-		saveFileButton = new JMenuItem("Save file");
+		saveFileButton = new JMenuItem("Save");
 		menu.add(saveFileButton);
+
+		loadFileButton = new JMenuItem("Load");
+		menu.add(loadFileButton);
 
 		exitButton = new JMenuItem("Exit");
 		menu.add(exitButton);
@@ -98,38 +94,42 @@ public class EditorPane extends JRootPane implements EditorView {
 		return editorArea;
 	}
 
+	@Override
 	public AbstractButton getNewFileButton() {
 		return newFileButton;
 	}
 
-	public AbstractButton getSaveButton() {
-		return saveButton;
-	}
-
-	public AbstractButton getLoadFileButton() {
-		return loadFileButton;
-	}
-
+	@Override
 	public AbstractButton getSaveFileButton() {
 		return saveFileButton;
 	}
 
+	@Override
+	public AbstractButton getLoadFileButton() {
+		return loadFileButton;
+	}
+
+	@Override
 	public AbstractButton getExitButton() {
 		return exitButton;
 	}
 
+	@Override
 	public AbstractButton getVolatileStrategyButton() {
 		return volatileStrategyButton;
 	}
 
+	@Override
 	public AbstractButton getStableStrategyButton() {
 		return stableStrategyButton;
 	}
 
+	@Override
 	public AbstractButton getDisableStrategyButton() {
 		return disableStrategyButton;
 	}
 
+	@Override
 	public AbstractButton getRollbackButton() {
 		return rollbackButton;
 	}

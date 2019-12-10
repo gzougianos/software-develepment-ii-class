@@ -9,11 +9,9 @@ public interface EditorView extends View<JRootPane> {
 
 	AbstractButton getNewFileButton();
 
-	AbstractButton getSaveButton();
+	AbstractButton getSaveFileButton();
 
 	AbstractButton getLoadFileButton();
-
-	AbstractButton getSaveFileButton();
 
 	AbstractButton getExitButton();
 

@@ -16,7 +16,12 @@ public class EditorViewController {
 	}
 
 	private void registerCommands() {
-		editorView.getSaveButton().addActionListener(e -> saveDocument());
+		editorView.getSaveFileButton().addActionListener(e -> saveDocument());
+		editorView.getLoadFileButton().addActionListener(e -> loadDocument());
+	}
+
+	private void loadDocument() {
+		commandFactory.createCommand(Command.LOAD_DOCUMENT).execute();
 	}
 
 	public void saveDocument() {
