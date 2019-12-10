@@ -10,6 +10,7 @@ public class Document implements Serializable {
 	private int versionId;
 	private String contents;
 	private DocumentType type;
+	private long createdTime;
 
 	private Document(DocumentType type, String author, String date, String copyright, int versionId, String contents) {
 		this.author = author;
@@ -18,10 +19,11 @@ public class Document implements Serializable {
 		this.versionId = versionId;
 		this.contents = contents;
 		this.type = type;
+		this.createdTime = System.currentTimeMillis();
 	}
 
 	public Document(DocumentType type) {
-		this.type = type;
+		this(type, "", "", "", 0, "");
 	}
 
 	public DocumentType getType() {
@@ -42,6 +44,10 @@ public class Document implements Serializable {
 
 	public int getVersionId() {
 		return versionId;
+	}
+
+	public long getCreatedTime() {
+		return createdTime;
 	}
 
 	public void nextVersion() {
