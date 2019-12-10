@@ -21,6 +21,7 @@ public class CreateCommand implements Command {
 	public void execute() {
 		DocumentType documentType = mainView.getOpeningView().getSelectedDocumentType();
 		Document document = documentManager.createDocument(documentType);
+		mainView.setCurrentDocument(document);
 		mainView.showEditorView();
 		mainView.getEditorView().getEditorComponent().setText(document.getContents());
 	}
