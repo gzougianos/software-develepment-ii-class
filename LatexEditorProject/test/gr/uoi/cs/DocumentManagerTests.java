@@ -27,6 +27,7 @@ public class DocumentManagerTests {
 
 		documentManager.saveDocument(document, testFile);
 		assertTrue(testFile.exists());
+		assertEquals(testFile, document.getPath());
 
 		Document newDocument = documentManager.loadDocument(testFile);
 		assertEquals(document, newDocument);
