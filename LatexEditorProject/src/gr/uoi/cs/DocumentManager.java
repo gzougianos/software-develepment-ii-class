@@ -33,6 +33,7 @@ public class DocumentManager {
 		if (path.isDirectory())
 			path = new File(path, "document.tex");
 
+		document.setPath(path);
 		try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path))) {
 			outputStream.writeObject(document);
 		}
@@ -40,7 +41,9 @@ public class DocumentManager {
 
 	public Document loadDocument(File file) throws FileNotFoundException, IOException, ClassNotFoundException {
 		try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file))) {
-			return (Document) oos.readObject();
+			Document doc = (Document) oos.readObject();
+			doc.setPath(file);
+			return doc;
 		}
 	}
 
