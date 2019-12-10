@@ -1,7 +1,12 @@
 package gr.uoi.cs;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
@@ -22,6 +27,21 @@ public class DocumentManager {
 
 	public Document createDocument(DocumentType documentType) {
 		return templates.get(documentType).clone();
+	}
+
+	public void saveDocument(Document document, File path) throws IOException {
+		if (path.isDirectory())
+			path = new File(path, "document.tex");
+
+		try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path))) {
+			outputStream.writeObject(document);
+		}
+	}
+
+	public Document loadDocument(File file) throws FileNotFoundException, IOException, ClassNotFoundException {
+		try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file))) {
+			return (Document) oos.readObject();
+		}
 	}
 
 	private Document createPrototype(DocumentType type) {
