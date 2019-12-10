@@ -1,49 +1,28 @@
 package controller.commands;
 
-import java.util.HashMap;
-
-import model.DocumentManager;
-import model.VersionsManager;
+import gr.uoi.cs.DocumentManager;
+import gr.uoi.cs.VersionsManager;
+import view.MainView;
 
 public class CommandFactory {
 	private DocumentManager documentManager;
 	private VersionsManager versionsManager;
-	
-	
-	public CommandFactory(VersionsManager versionsManager) {
-		super();
+	private MainView mainView;
+
+	public CommandFactory(DocumentManager documentManager, VersionsManager versionsManager, MainView mainView) {
+		this.documentManager = documentManager;
 		this.versionsManager = versionsManager;
-		documentManager = new DocumentManager();
+		this.mainView = mainView;
 	}
 
-
-	public Command createCommand(String type) {
-		if(type.equals("addLatex")) {
-			return new AddLatexCommand(versionsManager);
-		}
-		if(type.equals("changeVersionsStrategy")) {
-			return new ChangeVersionsStrategyCommand(versionsManager);
-		}
-		if(type.equals("create")) {
-			return new CreateCommand(documentManager, versionsManager);
-		}
-		if(type.equals("disableVersionsManagement")) {
-			return new DisableVersionsManagementCommand(versionsManager);
-		}
-		if(type.equals("edit")) {
-			return new EditCommand(versionsManager);
-		}
-		if(type.equals("enableVersionsManagement")) {
-			return new EnableVersionsManagementCommand(versionsManager);
-		}
-		if(type.equals("load")) {
-			return new LoadCommand(versionsManager);
-		}
-		if(type.equals("rollbackToPreviousVersion")) {
-			return new RollbackToPreviousVersionCommand(versionsManager);
-		}
-		if(type.equals("save")) {
-			return new SaveCommand(versionsManager);
+	public Command createCommand(String commandId) {
+		switch (commandId) {
+			case Command.CREATE_DOCUMENT:
+				return new CreateCommand(documentManager, versionsManager, mainView);
+			case Command.LOAD_DOCUMENT:
+				return new LoadCommand(documentManager, mainView);
+			case Command.EXIT:
+				return new ExitCommand();
 		}
 		return null;
 	}

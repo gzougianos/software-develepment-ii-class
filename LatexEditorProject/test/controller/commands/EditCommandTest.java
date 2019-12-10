@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import model.DocumentManager;
-import model.VersionsManager;
+import gr.uoi.cs.DocumentManager;
+import gr.uoi.cs.VersionsManager;
 import view.LatexEditorView;
 
 class EditCommandTest {

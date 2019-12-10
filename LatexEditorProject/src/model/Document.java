@@ -10,36 +10,41 @@ public class Document {
 	private String copyright;
 	private String versionID = "0";
 	private String contents;
-	
-	public Document(String author, String date, String copyright, String versionID, String contents) {
+	private DocumentType type;
+
+	private Document(DocumentType type, String author, String date, String copyright, String versionID,
+			String contents) {
 		this.author = author;
 		this.date = date;
 		this.copyright = copyright;
 		this.versionID = versionID;
 		this.contents = contents;
 	}
-	
-	
-	public Document() {
-		// TODO Auto-generated constructor stub
-		this.contents = "";
+
+	public Document(DocumentType type) {
+		this.type = type;
 	}
 
+	public DocumentType getType() {
+		return type;
+	}
+
+	public void setType(DocumentType type) {
+		this.type = type;
+	}
 
 	public String getContents() {
 		return contents;
 	}
 
-
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
 
-
 	public void save(String filename) {
 		try {
 			PrintWriter printWriter = new PrintWriter(new FileOutputStream(filename));
-			
+
 			printWriter.write(contents);
 			printWriter.close();
 		} catch (FileNotFoundException e) {
@@ -47,9 +52,10 @@ public class Document {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
 	public Document clone() {
-		return new Document(author, date, copyright, versionID, contents);
+		return new Document(type, author, date, copyright, versionID, contents);
 	}
 
 	public void changeVersion() {
@@ -57,10 +63,9 @@ public class Document {
 		versionID = (n + 1) + "";
 	}
 
-
 	public String getVersionID() {
 		// TODO Auto-generated method stub
 		return versionID;
 	}
-	
+
 }

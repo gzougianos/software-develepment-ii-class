@@ -1,6 +1,6 @@
 package controller.commands;
 
-import model.VersionsManager;
+import gr.uoi.cs.VersionsManager;
 
 public class EditCommand implements Command {
 	private VersionsManager versionsManager;
