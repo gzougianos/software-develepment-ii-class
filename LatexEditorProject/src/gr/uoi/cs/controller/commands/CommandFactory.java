@@ -23,6 +23,8 @@ public class CommandFactory {
 				return new CreateCommand(documentManager, versionsManager, mainView);
 			case Command.LOAD_DOCUMENT:
 				return new LoadCommand(documentManager, mainView);
+			case Command.SHOW_OPENING_VIEW:
+				return new ShowOpeningViewCommand(mainView);
 			case Command.EXIT:
 				return new ExitCommand();
 		}

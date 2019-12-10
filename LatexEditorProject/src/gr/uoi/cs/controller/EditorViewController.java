@@ -1,5 +1,6 @@
 package gr.uoi.cs.controller;
 
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -23,6 +24,25 @@ public class EditorViewController implements DocumentListener {
 		editorView.getSaveFileButton().addActionListener(e -> saveDocument());
 		editorView.getLoadFileButton().addActionListener(e -> loadDocument());
 		editorView.getExitButton().addActionListener(e -> exit());
+		editorView.getNewFileButton().addActionListener(e -> redirectToNewDocumentCreation());
+	}
+
+	private void redirectToNewDocumentCreation() {
+		if (askToSaveUnsavedChanges())
+			commandFactory.createCommand(Command.SHOW_OPENING_VIEW).execute();
+	}
+
+	private boolean askToSaveUnsavedChanges() {
+		if (contentChanged()) {
+			int answer = JOptionPane.showConfirmDialog(editorView.component(),
+					"There are unsaved changes to the document. Would you like to save them before you exit the editor?",
+					"Unsaved Changes", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+			if (answer == JOptionPane.YES_OPTION)
+				saveDocument();
+			else if (answer == JOptionPane.CANCEL_OPTION)
+				return false;
+		}
+		return true;
 	}
 
 	private void exit() {
@@ -54,10 +74,13 @@ public class EditorViewController implements DocumentListener {
 	}
 
 	private void updateSaveButtonAvailability() {
+		boolean hasNeverBeenSavedBefore = editorView.getCurrentDocument().getPath() == null;
+		editorView.getSaveFileButton().setEnabled(hasNeverBeenSavedBefore || contentChanged());
+	}
+
+	private boolean contentChanged() {
 		String documentContent = editorView.getCurrentDocument().getContents();
 		String contentInTextComponent = editorView.getEditorComponent().getText();
-		boolean hasNeverBeenSavedBefore = editorView.getCurrentDocument().getPath() == null;
-		editorView.getSaveFileButton()
-				.setEnabled(hasNeverBeenSavedBefore || !documentContent.equals(contentInTextComponent));
+		return !documentContent.equals(contentInTextComponent);
 	}
 }
