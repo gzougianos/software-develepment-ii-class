@@ -5,13 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
-import javax.swing.SwingUtilities;
 
-import gr.uoi.cs.DocumentManager;
-import gr.uoi.cs.VersionsManager;
-import gr.uoi.cs.controller.MainViewController;
-import gr.uoi.cs.controller.commands.CommandFactory;
-import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
 import gr.uoi.cs.view.EditorView;
 import gr.uoi.cs.view.MainView;
 import gr.uoi.cs.view.OpeningView;
@@ -71,16 +65,4 @@ public class MainFrame extends JFrame implements MainView {
 	public JFrame component() {
 		return this;
 	}
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> {
-			MainFrame view = new MainFrame();
-			DocumentManager documentManager = new DocumentManager();
-			VersionsManager versionsManager = new VersionsManager(new VersionsStrategyFactory());
-			CommandFactory commandFactory = new CommandFactory(documentManager, versionsManager, view);
-			new MainViewController(commandFactory, view);
-			view.setVisible(true);
-		});
-	}
-
 }
