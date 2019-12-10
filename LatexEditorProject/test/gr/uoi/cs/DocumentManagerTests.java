@@ -30,6 +30,7 @@ public class DocumentManagerTests {
 
 		Document newDocument = documentManager.loadDocument(testFile);
 		assertEquals(document, newDocument);
+		assertEquals(testFile, newDocument.getPath());
 	}
 
 	@BeforeEach
