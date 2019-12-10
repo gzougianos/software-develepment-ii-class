@@ -28,7 +28,7 @@ public class LoadCommandTests {
 
 		LoadCommand command = new LoadCommand(documentManager, mainView, () -> testFile);
 		command.execute();
-		assertEquals(doc, mainView.getCurrentDocument());
+		assertEquals(doc, mainView.getEditorView().getCurrentDocument());
 	}
 
 	@BeforeEach

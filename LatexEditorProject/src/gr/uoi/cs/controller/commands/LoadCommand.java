@@ -38,9 +38,9 @@ public class LoadCommand implements Command {
 
 		try {
 			Document document = documentManager.loadDocument(documentFile);
-			mainView.setCurrentDocument(document);
-			mainView.showEditorView();
+			mainView.getEditorView().setCurrentDocument(document);
 			mainView.getEditorView().getEditorComponent().setText(document.getContents());
+			mainView.showEditorView();
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(mainView.component(), "There was an error while loading document.",

@@ -4,6 +4,8 @@ import javax.swing.AbstractButton;
 import javax.swing.JRootPane;
 import javax.swing.text.JTextComponent;
 
+import gr.uoi.cs.model.Document;
+
 public interface EditorView extends View<JRootPane> {
 	JTextComponent getEditorComponent();
 
@@ -22,4 +24,8 @@ public interface EditorView extends View<JRootPane> {
 	AbstractButton getDisableStrategyButton();
 
 	AbstractButton getRollbackButton();
+
+	Document getCurrentDocument();
+
+	void setCurrentDocument(Document document);
 }

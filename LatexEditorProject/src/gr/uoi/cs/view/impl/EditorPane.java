@@ -12,10 +12,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 
+import gr.uoi.cs.model.Document;
 import gr.uoi.cs.view.EditorView;
 
 public class EditorPane extends JRootPane implements EditorView {
 	private static final long serialVersionUID = -1110668399927786993L;
+	private Document currentDocument;
 	private JTextArea editorArea;
 	private AbstractButton newFileButton;
 	private AbstractButton saveFileButton;
@@ -134,4 +136,13 @@ public class EditorPane extends JRootPane implements EditorView {
 		return rollbackButton;
 	}
 
+	@Override
+	public void setCurrentDocument(Document currentDocument) {
+		this.currentDocument = currentDocument;
+	}
+
+	@Override
+	public Document getCurrentDocument() {
+		return currentDocument;
+	}
 }

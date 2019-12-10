@@ -35,7 +35,7 @@ public class SaveCommand implements Command {
 
 	@Override
 	public void execute() {
-		Document document = mainView.getCurrentDocument();
+		Document document = mainView.getEditorView().getCurrentDocument();
 		document.setContents(mainView.getEditorView().getEditorComponent().getText());
 
 		File file = document.getPath() != null ? document.getPath() : documentFileSupplier.get();

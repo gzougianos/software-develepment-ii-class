@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
 
-import gr.uoi.cs.model.Document;
 import gr.uoi.cs.view.EditorView;
 import gr.uoi.cs.view.MainView;
 import gr.uoi.cs.view.OpeningView;
@@ -17,7 +16,6 @@ public class MainFrame extends JFrame implements MainView {
 	private OpeningView openingView;
 	private EditorView editorView;
 	private JRootPane defaultRootPane;
-	private Document document;
 
 	public MainFrame() {
 		super("Latex Editor");
@@ -68,13 +66,4 @@ public class MainFrame extends JFrame implements MainView {
 		return this;
 	}
 
-	@Override
-	public Document getCurrentDocument() {
-		return document;
-	}
-
-	@Override
-	public void setCurrentDocument(Document document) {
-		this.document = document;
-	}
 }

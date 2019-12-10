@@ -28,7 +28,7 @@ public class SaveCommandTests {
 	@Test
 	public void main() throws FileNotFoundException, ClassNotFoundException, IOException {
 		Document doc = documentManager.createDocument(DocumentType.ARTICLE);
-		mainView.setCurrentDocument(doc);
+		mainView.getEditorView().setCurrentDocument(doc);
 		JTextComponent textComponent = mainView.getEditorView().getEditorComponent();
 		textComponent.setText("contents");
 
