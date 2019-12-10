@@ -1,24 +1,23 @@
 package gr.uoi.cs.model;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.Serializable;
 
-public class Document {
+public class Document implements Serializable {
+	private static final long serialVersionUID = 2226256781646208244L;
 	private String author;
 	private String date;
 	private String copyright;
-	private String versionID = "0";
+	private int versionId;
 	private String contents;
 	private DocumentType type;
 
-	private Document(DocumentType type, String author, String date, String copyright, String versionID,
-			String contents) {
+	private Document(DocumentType type, String author, String date, String copyright, int versionId, String contents) {
 		this.author = author;
 		this.date = date;
 		this.copyright = copyright;
-		this.versionID = versionID;
+		this.versionId = versionId;
 		this.contents = contents;
+		this.type = type;
 	}
 
 	public Document(DocumentType type) {
@@ -41,31 +40,56 @@ public class Document {
 		this.contents = contents;
 	}
 
-	public void save(String filename) {
-		try {
-			PrintWriter printWriter = new PrintWriter(new FileOutputStream(filename));
+	public int getVersionId() {
+		return versionId;
+	}
 
-			printWriter.write(contents);
-			printWriter.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void nextVersion() {
+		versionId++;
 	}
 
 	@Override
 	public Document clone() {
-		return new Document(type, author, date, copyright, versionID, contents);
+		return new Document(type, author, date, copyright, versionId, contents);
 	}
 
-	public void changeVersion() {
-		int n = Integer.parseInt(versionID);
-		versionID = (n + 1) + "";
-	}
-
-	public String getVersionID() {
-		// TODO Auto-generated method stub
-		return versionID;
+	/*
+	 * Eclipse IDE auto-generated equals() method
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Document other = (Document) obj;
+		if (author == null) {
+			if (other.author != null)
+				return false;
+		} else if (!author.equals(other.author))
+			return false;
+		if (contents == null) {
+			if (other.contents != null)
+				return false;
+		} else if (!contents.equals(other.contents))
+			return false;
+		if (copyright == null) {
+			if (other.copyright != null)
+				return false;
+		} else if (!copyright.equals(other.copyright))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (type != other.type)
+			return false;
+		if (versionId != other.versionId)
+			return false;
+		return true;
 	}
 
 }
