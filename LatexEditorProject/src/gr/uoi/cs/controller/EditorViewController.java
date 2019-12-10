@@ -22,6 +22,11 @@ public class EditorViewController implements DocumentListener {
 	private void registerCommands() {
 		editorView.getSaveFileButton().addActionListener(e -> saveDocument());
 		editorView.getLoadFileButton().addActionListener(e -> loadDocument());
+		editorView.getExitButton().addActionListener(e -> exit());
+	}
+
+	private void exit() {
+		commandFactory.createCommand(Command.EXIT).execute();
 	}
 
 	private void loadDocument() {
