@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.DocumentManager;
 import gr.uoi.cs.VersionsManager;
-import view.LatexEditorView;
+import gr.uoi.cs.controller.commands.CreateCommand;
+import gr.uoi.cs.controller.commands.EditCommand;
+import gr.uoi.cs.view.LatexEditorView;
 
 class EditCommandTest {
 	private LatexEditorView latexEditorView = new LatexEditorView();

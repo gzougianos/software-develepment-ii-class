@@ -4,10 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import controller.LatexEditorController;
 import gr.uoi.cs.DocumentManager;
 import gr.uoi.cs.VersionsManager;
-import view.LatexEditorView;
+import gr.uoi.cs.controller.LatexEditorController;
+import gr.uoi.cs.controller.commands.CreateCommand;
+import gr.uoi.cs.view.LatexEditorView;
 
 class CreateCommandTest {
 	private LatexEditorView latexEditorView = new LatexEditorView();

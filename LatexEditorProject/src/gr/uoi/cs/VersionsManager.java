@@ -1,8 +1,8 @@
 package gr.uoi.cs;
 
-import model.Document;
-import model.strategies.VersionsStrategy;
-import model.strategies.VersionsStrategyFactory;
+import gr.uoi.cs.model.Document;
+import gr.uoi.cs.model.strategies.VersionsStrategy;
+import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
 
 public class VersionsManager {
 	private boolean enabled;

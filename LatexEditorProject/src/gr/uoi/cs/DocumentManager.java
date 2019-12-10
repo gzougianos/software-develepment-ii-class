@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import model.Document;
-import model.DocumentType;
+import gr.uoi.cs.model.Document;
+import gr.uoi.cs.model.DocumentType;
 
 public class DocumentManager {
 	private static final String templatesPackage = "/gr/uoi/cs/resource/templates/";

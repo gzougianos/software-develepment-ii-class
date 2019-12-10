@@ -6,10 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.DocumentManager;
 import gr.uoi.cs.VersionsManager;
-import model.strategies.StableVersionsStrategy;
-import model.strategies.VersionsStrategy;
-import model.strategies.VolatileVersionsStrategy;
-import view.LatexEditorView;
+import gr.uoi.cs.controller.commands.CreateCommand;
+import gr.uoi.cs.controller.commands.EditCommand;
+import gr.uoi.cs.controller.commands.EnableVersionsManagementCommand;
+import gr.uoi.cs.model.strategies.StableVersionsStrategy;
+import gr.uoi.cs.model.strategies.VersionsStrategy;
+import gr.uoi.cs.model.strategies.VolatileVersionsStrategy;
+import gr.uoi.cs.view.LatexEditorView;
 
 class EnableVersionsManagementCommandTest {
 	private LatexEditorView latexEditorView = new LatexEditorView();
