@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import gr.uoi.cs.DocumentManager;
 import gr.uoi.cs.VersionsManager;
 import gr.uoi.cs.model.Document;
+import gr.uoi.cs.support.TexFileFilter;
 import gr.uoi.cs.view.MainView;
 
 public class SaveCommand implements Command {
@@ -35,7 +36,9 @@ public class SaveCommand implements Command {
 	@Override
 	public void execute() {
 		Document document = mainView.getCurrentDocument();
-		File file = documentFileSupplier.get();
+		document.setContents(mainView.getEditorView().getEditorComponent().getText());
+
+		File file = document.getPath() != null ? document.getPath() : documentFileSupplier.get();
 
 		if (file == null)
 			return; // mostly when file chooser dialog closed
@@ -56,7 +59,8 @@ public class SaveCommand implements Command {
 		JFileChooser chooser = new JFileChooser(desktopDirectory);
 		chooser.setMultiSelectionEnabled(false);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
+		chooser.setAcceptAllFileFilterUsed(false);
+		chooser.setFileFilter(new TexFileFilter());
 		if (chooser.showSaveDialog(mainView.component()) == JFileChooser.APPROVE_OPTION) {
 			return chooser.getSelectedFile();
 		}
