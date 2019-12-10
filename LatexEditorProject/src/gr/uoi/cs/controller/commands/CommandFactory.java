@@ -17,6 +17,8 @@ public class CommandFactory {
 
 	public Command createCommand(String commandId) {
 		switch (commandId) {
+			case Command.SAVE_DOCUMENT:
+				return new SaveCommand(versionsManager, documentManager, mainView);
 			case Command.CREATE_DOCUMENT:
 				return new CreateCommand(documentManager, versionsManager, mainView);
 			case Command.LOAD_DOCUMENT:

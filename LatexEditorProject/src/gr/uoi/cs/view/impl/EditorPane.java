@@ -22,10 +22,10 @@ public class EditorPane extends JRootPane implements EditorView {
 	private AbstractButton loadFileButton;
 	private AbstractButton saveFileButton;
 	private AbstractButton exitButton;
-	private JCheckBoxMenuItem volatileStrategyButton;
-	private JCheckBoxMenuItem stableStrategyButton;
-	private JMenuItem disableStrategyButton;
-	private JMenuItem rollbackButton;
+	private AbstractButton volatileStrategyButton;
+	private AbstractButton stableStrategyButton;
+	private AbstractButton disableStrategyButton;
+	private AbstractButton rollbackButton;
 
 	public EditorPane() {
 		super();
@@ -92,6 +92,46 @@ public class EditorPane extends JRootPane implements EditorView {
 	@Override
 	public JTextComponent getEditorComponent() {
 		return editorArea;
+	}
+
+	public JTextArea getEditorArea() {
+		return editorArea;
+	}
+
+	public AbstractButton getNewFileButton() {
+		return newFileButton;
+	}
+
+	public AbstractButton getSaveButton() {
+		return saveButton;
+	}
+
+	public AbstractButton getLoadFileButton() {
+		return loadFileButton;
+	}
+
+	public AbstractButton getSaveFileButton() {
+		return saveFileButton;
+	}
+
+	public AbstractButton getExitButton() {
+		return exitButton;
+	}
+
+	public AbstractButton getVolatileStrategyButton() {
+		return volatileStrategyButton;
+	}
+
+	public AbstractButton getStableStrategyButton() {
+		return stableStrategyButton;
+	}
+
+	public AbstractButton getDisableStrategyButton() {
+		return disableStrategyButton;
+	}
+
+	public AbstractButton getRollbackButton() {
+		return rollbackButton;
 	}
 
 }

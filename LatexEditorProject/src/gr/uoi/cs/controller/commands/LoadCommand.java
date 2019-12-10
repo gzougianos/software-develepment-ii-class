@@ -14,10 +14,10 @@ public class LoadCommand implements Command {
 	private MainView mainView;
 	private Supplier<File> documentFileSupplier;
 
-	public LoadCommand(DocumentManager documentManager, MainView mainView, Supplier<File> fileSupplier) {
+	public LoadCommand(DocumentManager documentManager, MainView mainView, Supplier<File> documentFileSupplier) {
 		this.documentManager = documentManager;
 		this.mainView = mainView;
-		this.documentFileSupplier = fileSupplier;
+		this.documentFileSupplier = documentFileSupplier;
 	}
 
 	public LoadCommand(DocumentManager documentManager, MainView mainView) {
