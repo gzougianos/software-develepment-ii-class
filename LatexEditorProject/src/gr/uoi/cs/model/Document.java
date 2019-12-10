@@ -1,5 +1,6 @@
 package gr.uoi.cs.model;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class Document implements Serializable {
@@ -11,6 +12,7 @@ public class Document implements Serializable {
 	private String contents;
 	private DocumentType type;
 	private long createdTime;
+	private transient File path;
 
 	private Document(DocumentType type, String author, String date, String copyright, int versionId, String contents) {
 		this.author = author;
@@ -76,6 +78,14 @@ public class Document implements Serializable {
 
 	public void nextVersion() {
 		versionId++;
+	}
+
+	public File getPath() {
+		return path;
+	}
+
+	public void setPath(File path) {
+		this.path = path;
 	}
 
 	@Override
