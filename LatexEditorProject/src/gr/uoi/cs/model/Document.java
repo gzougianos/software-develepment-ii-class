@@ -95,6 +95,8 @@ public class Document implements Serializable {
 			return false;
 		if (versionId != other.versionId)
 			return false;
+		if (createdTime != other.createdTime)
+			return false;
 		return true;
 	}
 
