@@ -33,7 +33,10 @@ public class VersionsManager {
 	}
 
 	public void putVersion(Document document) {
-		strategy.putVersion(document);
+		if (isEnabled())
+			strategy.putVersion(document);
+		else
+			throw new RuntimeException("Cannot keep version of document. Version Manager is currently disabled.");
 	}
 
 	public void rollback() {
