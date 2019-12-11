@@ -7,7 +7,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JRootPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
@@ -15,7 +15,7 @@ import javax.swing.text.JTextComponent;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.view.EditorView;
 
-public class EditorPane extends JRootPane implements EditorView {
+public class EditorPanel extends JPanel implements EditorView {
 	private static final long serialVersionUID = -1110668399927786993L;
 	private Document currentDocument;
 	private JTextArea editorArea;
@@ -27,23 +27,23 @@ public class EditorPane extends JRootPane implements EditorView {
 	private AbstractButton stableStrategyButton;
 	private AbstractButton disableStrategyButton;
 	private AbstractButton rollbackButton;
+	private JMenuBar menuBar;
 
-	public EditorPane() {
+	public EditorPanel() {
 		super();
-		getContentPane().setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 
 		editorArea = new JTextArea();
 		editorArea.setWrapStyleWord(true);
 		editorArea.setLineWrap(true);
 
 		JScrollPane editorScrollPane = new JScrollPane(editorArea);
-		getContentPane().add(editorScrollPane, BorderLayout.CENTER);
+		add(editorScrollPane, BorderLayout.CENTER);
 
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		menuBar.add(createFileMenu());
 		menuBar.add(createStrategyMenu());
 
-		setJMenuBar(menuBar);
 	}
 
 	private JMenu createStrategyMenu() {
@@ -83,7 +83,7 @@ public class EditorPane extends JRootPane implements EditorView {
 	}
 
 	@Override
-	public JRootPane component() {
+	public JPanel component() {
 		return this;
 	}
 
@@ -144,5 +144,10 @@ public class EditorPane extends JRootPane implements EditorView {
 	@Override
 	public Document getCurrentDocument() {
 		return currentDocument;
+	}
+
+	@Override
+	public JMenuBar getMenuBar() {
+		return menuBar;
 	}
 }

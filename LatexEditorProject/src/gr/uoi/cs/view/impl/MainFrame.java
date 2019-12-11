@@ -1,10 +1,10 @@
 package gr.uoi.cs.view.impl;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JRootPane;
 
 import gr.uoi.cs.view.EditorView;
 import gr.uoi.cs.view.MainView;
@@ -15,17 +15,15 @@ public class MainFrame extends JFrame implements MainView {
 	private static final Dimension minimumSize = new Dimension(400, 400);
 	private OpeningView openingView;
 	private EditorView editorView;
-	private JRootPane defaultRootPane;
 
 	public MainFrame() {
 		super("Latex Editor");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		defaultRootPane = getRootPane();
 
 		setLayout(new BorderLayout());
 
 		openingView = new OpeningPanel();
-		editorView = new EditorPane();
+		editorView = new EditorPanel();
 
 		showOpeningView();
 
@@ -47,16 +45,19 @@ public class MainFrame extends JFrame implements MainView {
 
 	@Override
 	public void showEditorView() {
-		setRootPane(editorView.component());
-		revalidate();
-		repaint();
+		setJMenuBar(getEditorView().getMenuBar());
+		removeAllAndAdd(getEditorView().component());
 	}
 
 	@Override
 	public void showOpeningView() {
-		setRootPane(defaultRootPane);
+		setJMenuBar(null);
+		removeAllAndAdd(getOpeningView().component());
+	}
+
+	private void removeAllAndAdd(Component c) {
 		getContentPane().removeAll();
-		getContentPane().add(openingView.component());
+		getContentPane().add(c);
 		getContentPane().revalidate();
 		getContentPane().repaint();
 	}
