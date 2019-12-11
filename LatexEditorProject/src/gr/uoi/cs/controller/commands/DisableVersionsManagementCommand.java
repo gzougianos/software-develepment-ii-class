@@ -1,20 +1,23 @@
 package gr.uoi.cs.controller.commands;
 
 import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.view.MainView;
 
 public class DisableVersionsManagementCommand implements Command {
-
 	private VersionsManager versionsManager;
-	
-	public DisableVersionsManagementCommand(VersionsManager versionsManager) {
-		super();
+	private MainView mainView;
+
+	public DisableVersionsManagementCommand(VersionsManager versionsManager, MainView mainView) {
 		this.versionsManager = versionsManager;
+		this.mainView = mainView;
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		mainView.getEditorView().getDisableStrategyButton().setSelected(false);
+		mainView.getEditorView().getVolatileStrategyButton().setSelected(false);
 		versionsManager.disable();
+		mainView.getEditorView().getDisableStrategyButton().setEnabled(false);
 	}
 
 }

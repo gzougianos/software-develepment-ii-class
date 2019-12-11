@@ -8,27 +8,27 @@ import java.util.Scanner;
 
 import gr.uoi.cs.model.Document;
 
-public class StableVersionsStrategy implements VersionsStrategy{
+public class StableVersionsStrategy implements VersionsStrategy {
 	private String versionID = "";
+
 	@Override
 	public void putVersion(Document document) {
-		// TODO Auto-generated method stub
 		String filename = document.getVersionID() + ".tex";
 		document.save(filename);
 		versionID = document.getVersionID();
-		
+
 	}
 
 	@Override
 	public Document getVersion() {
 		// TODO Auto-generated method stub
-		if(versionID.equals(""))
+		if (versionID.equals(""))
 			return null;
-		
+
 		String fileContents = "";
 		try {
 			Scanner scanner = new Scanner(new FileInputStream(versionID + ".tex"));
-			while(scanner.hasNextLine()) {
+			while (scanner.hasNextLine()) {
 				fileContents = fileContents + scanner.nextLine() + "\n";
 			}
 		} catch (FileNotFoundException e) {
@@ -43,12 +43,12 @@ public class StableVersionsStrategy implements VersionsStrategy{
 	@Override
 	public void setEntireHistory(List<Document> documents) {
 		// TODO Auto-generated method stub
-		for(int i = 0; i < documents.size(); i++) {
+		for (int i = 0; i < documents.size(); i++) {
 			Document doc = documents.get(i);
-			doc.save(doc.getVersionID() +".tex");
+			doc.save(doc.getVersionID() + ".tex");
 		}
-		if(documents.size() > 0)
-			versionID = documents.get(documents.size()-1).getVersionID();
+		if (documents.size() > 0)
+			versionID = documents.get(documents.size() - 1).getVersionID();
 		else
 			versionID = "";
 	}
@@ -57,14 +57,14 @@ public class StableVersionsStrategy implements VersionsStrategy{
 	public List<Document> getEntireHistory() {
 		// TODO Auto-generated method stub
 		List<Document> documents = new ArrayList<Document>();
-		if(versionID.equals(""))
+		if (versionID.equals(""))
 			return documents;
 		int n = Integer.parseInt(versionID);
-		for(int i = 0; i <= n; i++) {
+		for (int i = 0; i <= n; i++) {
 			String fileContents = "";
 			try {
 				Scanner scanner = new Scanner(new FileInputStream(i + ".tex"));
-				while(scanner.hasNextLine()) {
+				while (scanner.hasNextLine()) {
 					fileContents = fileContents + scanner.nextLine() + "\n";
 				}
 			} catch (FileNotFoundException e) {
@@ -82,10 +82,10 @@ public class StableVersionsStrategy implements VersionsStrategy{
 	public void removeVersion() {
 		// TODO Auto-generated method stub
 		int n = Integer.parseInt(versionID);
-		if(n == 0)
+		if (n == 0)
 			versionID = "";
 		else
-			versionID = (n-1) + "";
-		
+			versionID = (n - 1) + "";
+
 	}
 }

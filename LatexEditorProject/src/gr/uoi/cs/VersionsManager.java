@@ -30,7 +30,6 @@ public class VersionsManager {
 		VersionsStrategy newStrategy = strategyFactory.createStrategy(strategyId);
 		newStrategy.setEntireHistory(strategy.getEntireHistory());
 		strategy = newStrategy;
-		enable();
 	}
 
 	public void putVersion(Document document) {

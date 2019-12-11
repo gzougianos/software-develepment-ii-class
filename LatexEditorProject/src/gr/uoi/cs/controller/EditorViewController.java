@@ -1,5 +1,7 @@
 package gr.uoi.cs.controller;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -18,13 +20,34 @@ public class EditorViewController implements DocumentListener {
 
 		editorView.getEditorComponent().getDocument().addDocumentListener(this);
 		registerCommands();
+		disableVersionStrategy(); // default is disabled
 	}
 
 	private void registerCommands() {
+		registerFileRelatedCommands();
+		registerVersionStrategyRelatedCommands();
+	}
+
+	private void registerVersionStrategyRelatedCommands() {
+		editorView.getDisableStrategyButton().addActionListener(e -> disableVersionStrategy());
+		ActionListener enableVersionStrategyListener = e -> enableVersionStrategy();
+		editorView.getVolatileStrategyButton().addActionListener(enableVersionStrategyListener);
+		editorView.getStableStrategyButton().addActionListener(enableVersionStrategyListener);
+	}
+
+	private void registerFileRelatedCommands() {
 		editorView.getSaveFileButton().addActionListener(e -> saveDocument());
 		editorView.getLoadFileButton().addActionListener(e -> loadDocument());
 		editorView.getExitButton().addActionListener(e -> exit());
 		editorView.getNewFileButton().addActionListener(e -> redirectToNewDocumentCreation());
+	}
+
+	private void enableVersionStrategy() {
+		commandFactory.createCommand(Command.ENABLE_VERSION_STRATEGY).execute();
+	}
+
+	private void disableVersionStrategy() {
+		commandFactory.createCommand(Command.DISABLE_VERSION_STRATEGY).execute();
 	}
 
 	private void redirectToNewDocumentCreation() {

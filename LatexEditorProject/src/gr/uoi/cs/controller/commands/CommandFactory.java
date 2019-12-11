@@ -17,6 +17,10 @@ public class CommandFactory {
 
 	public Command createCommand(String commandId) {
 		switch (commandId) {
+			case Command.ENABLE_VERSION_STRATEGY:
+				return new EnableVersionsManagementCommand(versionsManager, mainView);
+			case Command.DISABLE_VERSION_STRATEGY:
+				return new DisableVersionsManagementCommand(versionsManager, mainView);
 			case Command.SAVE_DOCUMENT:
 				return new SaveCommand(versionsManager, documentManager, mainView);
 			case Command.CREATE_DOCUMENT:
