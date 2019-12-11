@@ -76,8 +76,8 @@ public class Document implements Serializable {
 		return createdTime;
 	}
 
-	public void nextVersion() {
-		versionId++;
+	public void setVersionId(int versionId) {
+		this.versionId = versionId;
 	}
 
 	public File getPath() {
