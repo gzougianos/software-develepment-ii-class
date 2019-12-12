@@ -3,6 +3,7 @@ package gr.uoi.cs.model.strategies;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -70,6 +71,13 @@ public class StableVersionsStrategy implements VersionsStrategy {
 		}
 	}
 
+	private Document loadDocument(File file) throws FileNotFoundException, IOException, ClassNotFoundException {
+		try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file))) {
+			Document doc = (Document) oos.readObject();
+			return doc;
+		}
+	}
+
 	private String nameDocumentVersion(Document document, int versionId) {
 		return document.getCreatedTime() + "-" + versionId;
 	}
@@ -94,6 +102,14 @@ public class StableVersionsStrategy implements VersionsStrategy {
 	@Override
 	public List<Document> getEntireHistory(Document document) {
 		List<Document> documents = new ArrayList<Document>();
+		File[] versionFiles = versionFiles(document);
+		for (File f : versionFiles) {
+			try {
+				documents.add(loadDocument(f));
+			} catch (ClassNotFoundException | IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return documents;
 	}
 
