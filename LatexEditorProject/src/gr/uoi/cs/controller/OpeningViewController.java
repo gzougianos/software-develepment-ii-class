@@ -5,8 +5,8 @@ import java.awt.Component;
 
 import javax.swing.JPanel;
 
-import gr.uoi.cs.controller.commands.Command;
-import gr.uoi.cs.controller.commands.CommandFactory;
+import gr.uoi.cs.controller.command.Command;
+import gr.uoi.cs.controller.command.CommandFactory;
 import gr.uoi.cs.view.OpeningView;
 
 public class OpeningViewController {

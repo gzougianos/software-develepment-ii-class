@@ -1,4 +1,4 @@
-package gr.uoi.cs.controller.commands;
+package gr.uoi.cs.controller.command;
 
 public interface Command {
 	String ROLLBACK_TO_PREVIOUS_VERSION = "ROLLBACK_TO_PREVIOUS_VERSION";

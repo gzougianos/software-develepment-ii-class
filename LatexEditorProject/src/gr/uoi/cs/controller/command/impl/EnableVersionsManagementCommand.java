@@ -1,6 +1,7 @@
-package gr.uoi.cs.controller.commands;
+package gr.uoi.cs.controller.command.impl;
 
 import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.strategies.VersionsStrategy;
 import gr.uoi.cs.view.EditorView;

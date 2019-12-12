@@ -1,4 +1,6 @@
-package gr.uoi.cs.controller.commands;
+package gr.uoi.cs.controller.command.impl;
+
+import gr.uoi.cs.controller.command.Command;
 
 public class ExitCommand implements Command {
 	public ExitCommand() {

@@ -1,4 +1,4 @@
-package gr.uoi.cs.controller.commands;
+package gr.uoi.cs.controller.command.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import gr.uoi.cs.DocumentManager;
 import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.support.TexFileFilter;
 import gr.uoi.cs.view.MainView;

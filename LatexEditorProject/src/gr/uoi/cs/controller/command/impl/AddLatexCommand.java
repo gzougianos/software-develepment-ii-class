@@ -1,6 +1,7 @@
-package gr.uoi.cs.controller.commands;
+package gr.uoi.cs.controller.command.impl;
 
 import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.controller.command.Command;
 
 public class AddLatexCommand implements Command  {
 	private VersionsManager versionsManager;

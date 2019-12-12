@@ -1,6 +1,6 @@
 package gr.uoi.cs.controller;
 
-import gr.uoi.cs.controller.commands.CommandFactory;
+import gr.uoi.cs.controller.command.CommandFactory;
 import gr.uoi.cs.view.MainView;
 
 public class MainViewController {

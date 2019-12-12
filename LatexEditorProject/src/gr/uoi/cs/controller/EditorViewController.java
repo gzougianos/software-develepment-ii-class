@@ -7,8 +7,8 @@ import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import gr.uoi.cs.controller.commands.Command;
-import gr.uoi.cs.controller.commands.CommandFactory;
+import gr.uoi.cs.controller.command.Command;
+import gr.uoi.cs.controller.command.CommandFactory;
 import gr.uoi.cs.view.EditorView;
 
 public class EditorViewController implements DocumentListener {

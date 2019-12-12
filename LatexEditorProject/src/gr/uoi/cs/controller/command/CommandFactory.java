@@ -1,7 +1,16 @@
-package gr.uoi.cs.controller.commands;
+package gr.uoi.cs.controller.command;
 
 import gr.uoi.cs.DocumentManager;
 import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.controller.command.impl.CreateCommand;
+import gr.uoi.cs.controller.command.impl.DisableVersionsManagementCommand;
+import gr.uoi.cs.controller.command.impl.EnableVersionsManagementCommand;
+import gr.uoi.cs.controller.command.impl.ExitCommand;
+import gr.uoi.cs.controller.command.impl.KeepVersionCommand;
+import gr.uoi.cs.controller.command.impl.LoadCommand;
+import gr.uoi.cs.controller.command.impl.RollbackToPreviousVersionCommand;
+import gr.uoi.cs.controller.command.impl.SaveCommand;
+import gr.uoi.cs.controller.command.impl.ShowOpeningViewCommand;
 import gr.uoi.cs.view.MainView;
 
 public class CommandFactory {

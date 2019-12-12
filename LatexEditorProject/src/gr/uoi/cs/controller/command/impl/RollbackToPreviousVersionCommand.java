@@ -1,8 +1,9 @@
-package gr.uoi.cs.controller.commands;
+package gr.uoi.cs.controller.command.impl;
 
 import javax.swing.JOptionPane;
 
 import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.strategies.VersionNotFoundException;
 import gr.uoi.cs.view.MainView;
