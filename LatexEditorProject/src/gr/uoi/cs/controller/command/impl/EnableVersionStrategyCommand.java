@@ -19,15 +19,21 @@ public class EnableVersionStrategyCommand implements Command {
 
 	@Override
 	public void execute() {
-		Document document = mainView.getEditorView().getCurrentDocument();
-		mainView.getEditorView().getDisableStrategyButton().setEnabled(true);
-		mainView.getEditorView().getRollbackButton().setEnabled(true);
+		EditorView editorView = mainView.getEditorView();
+		Document document = editorView.getCurrentDocument();
+		editorView.getDisableStrategyButton().setEnabled(true);
+		editorView.getRollbackButton().setEnabled(true);
 		String versionStrategyId = getVersionStrategyIdAccordingToWhichButtonIsSelected();
 		boolean wasEnabled = versionsManager.isEnabled();
 		versionsManager.enable();
 		versionsManager.changeStrategy(versionStrategyId, document);
-		if (!wasEnabled)
-			versionsManager.commitVersion(document);
+		if (!wasEnabled) {
+			String previousContents = document.getContents();
+			document.setContents(editorView.getEditorComponent().getText());
+			if (versionsManager.isEnabled())
+				versionsManager.commitVersion(document);
+			document.setContents(previousContents);
+		}
 	}
 
 	private String getVersionStrategyIdAccordingToWhichButtonIsSelected() {
