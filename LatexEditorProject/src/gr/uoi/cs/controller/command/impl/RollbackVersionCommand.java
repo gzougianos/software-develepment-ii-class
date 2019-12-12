@@ -23,6 +23,8 @@ public class RollbackVersionCommand implements Command {
 		try {
 			versionsManager.rollback(document);
 			mainView.getEditorView().getEditorComponent().setText(document.getContents());
+			// Controller will disable it so we must enable it again
+			mainView.getEditorView().getSaveFileButton().setEnabled(true);
 		} catch (VersionNotFoundException e) {
 			JOptionPane.showMessageDialog(mainView.component(), "There is no previous version.", "Rollback",
 					JOptionPane.ERROR_MESSAGE);
