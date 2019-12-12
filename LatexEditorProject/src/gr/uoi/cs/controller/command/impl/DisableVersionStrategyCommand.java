@@ -15,8 +15,7 @@ public class DisableVersionStrategyCommand implements Command {
 
 	@Override
 	public void execute() {
-		mainView.getEditorView().getDisableStrategyButton().setSelected(false);
-		mainView.getEditorView().getVolatileStrategyButton().setSelected(false);
+		mainView.getEditorView().clearStrategySelection();
 		versionsManager.disable();
 		mainView.getEditorView().getDisableStrategyButton().setEnabled(false);
 		mainView.getEditorView().getRollbackButton().setEnabled(false);
