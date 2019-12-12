@@ -1,20 +1,25 @@
 package gr.uoi.cs.controller.command.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import gr.uoi.cs.DocumentManager;
-import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.LatexCommandManager;
 import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.DocumentType;
+import gr.uoi.cs.model.LatexCommand;
 import gr.uoi.cs.view.MainView;
 
 public class CreateDocumentCommand implements Command {
 	private DocumentManager documentManager;
-	private VersionsManager versionsManager;
 	private MainView mainView;
+	private LatexCommandManager latexCommandManager;
 
-	public CreateDocumentCommand(DocumentManager documentManager, VersionsManager versionsManager, MainView mainView) {
+	public CreateDocumentCommand(DocumentManager documentManager, LatexCommandManager latexCommandManager,
+			MainView mainView) {
 		this.documentManager = documentManager;
-		this.versionsManager = versionsManager;
+		this.latexCommandManager = latexCommandManager;
 		this.mainView = mainView;
 	}
 
@@ -25,6 +30,10 @@ public class CreateDocumentCommand implements Command {
 		mainView.getEditorView().setCurrentDocument(document);
 		mainView.getEditorView().getEditorComponent().setText(document.getContents());
 		mainView.showEditorView();
+
+		Map<String, List<LatexCommand>> commandsForThisType = latexCommandManager
+				.getCommandsForDocumentType(document.getType());
+		mainView.getEditorView().setLatexCommands(commandsForThisType);
 	}
 
 }

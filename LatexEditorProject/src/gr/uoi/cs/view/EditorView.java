@@ -1,13 +1,19 @@
 package gr.uoi.cs.view;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.swing.AbstractButton;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
 import gr.uoi.cs.model.Document;
+import gr.uoi.cs.model.LatexCommand;
 
 public interface EditorView extends View<JPanel> {
+	String COMMANDS_CHANGED_PROPERTY = "COMMANDS_CHANGED";
 
 	JMenuBar getMenuBar();
 
@@ -34,4 +40,8 @@ public interface EditorView extends View<JPanel> {
 	void setCurrentDocument(Document document);
 
 	void clearStrategySelection();
+
+	void setLatexCommands(Map<String, List<LatexCommand>> commands);
+
+	JMenu getLatexCommandsMenu();
 }

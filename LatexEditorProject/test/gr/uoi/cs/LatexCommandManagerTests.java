@@ -1,5 +1,6 @@
 package gr.uoi.cs;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -11,5 +12,7 @@ public class LatexCommandManagerTests {
 	public void main() {
 		LatexCommandManager manager = new LatexCommandManager();
 		assertTrue(manager.getCommandsForDocumentType(DocumentType.LETTER).isEmpty());
+
+		assertFalse(manager.getCommandsForDocumentType(DocumentType.BOOK).isEmpty());
 	}
 }

@@ -1,14 +1,22 @@
 package gr.uoi.cs.controller;
 
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.util.List;
+import java.util.Map;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.JTextComponent;
 
 import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.controller.command.CommandFactory;
+import gr.uoi.cs.model.LatexCommand;
 import gr.uoi.cs.view.EditorView;
 
 public class EditorViewController implements DocumentListener {
@@ -25,6 +33,38 @@ public class EditorViewController implements DocumentListener {
 		editorView.getEditorComponent().getDocument().addDocumentListener(this);
 		registerCommands();
 		disableVersionStrategy(); // default is disabled
+		registerLatexCommandsChangedListener();
+	}
+
+	private void registerLatexCommandsChangedListener() {
+		editorView.component().addPropertyChangeListener(EditorView.COMMANDS_CHANGED_PROPERTY,
+				this::latexCommandsChanged);
+	}
+
+	private void latexCommandsChanged(PropertyChangeEvent event) {
+		@SuppressWarnings("unchecked")
+		Map<String, List<LatexCommand>> commands = (Map<String, List<LatexCommand>>) event.getNewValue();
+		JMenu commandsMenu = editorView.getLatexCommandsMenu();
+		commandsMenu.removeAll();
+		commandsMenu.setEnabled(!commands.isEmpty());
+		for (String category : commands.keySet()) {
+			JMenu categoryMenu = new JMenu(category);
+			for (LatexCommand command : commands.get(category)) {
+				JMenuItem commandMenuItem = new JMenuItem(command.getName());
+				commandMenuItem.addActionListener(e -> addLatexCommand(command));
+				categoryMenu.add(commandMenuItem);
+			}
+			commandsMenu.add(categoryMenu);
+		}
+	}
+
+	private void addLatexCommand(LatexCommand command) {
+		JTextComponent textComponent = editorView.getEditorComponent();
+		try {
+			textComponent.getDocument().insertString(textComponent.getCaretPosition(), command.getContent(), null);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initKeepVersionTimer() {

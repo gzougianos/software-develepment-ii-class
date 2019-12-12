@@ -1,6 +1,8 @@
 package gr.uoi.cs.view.impl;
 
 import java.awt.BorderLayout;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -14,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 
 import gr.uoi.cs.model.Document;
+import gr.uoi.cs.model.LatexCommand;
 import gr.uoi.cs.view.EditorView;
 
 public class EditorPanel extends JPanel implements EditorView {
@@ -30,6 +33,7 @@ public class EditorPanel extends JPanel implements EditorView {
 	private AbstractButton rollbackButton;
 	private JMenuBar menuBar;
 	private ButtonGroup strategyButtonGroup;
+	private JMenu commandsMenu;
 
 	public EditorPanel() {
 		super();
@@ -44,6 +48,7 @@ public class EditorPanel extends JPanel implements EditorView {
 
 		menuBar = new JMenuBar();
 		menuBar.add(createFileMenu());
+		menuBar.add(commandsMenu = new JMenu("Latex Commands"));
 		menuBar.add(createStrategyMenu());
 
 		strategyButtonGroup = new ButtonGroup();
@@ -160,5 +165,15 @@ public class EditorPanel extends JPanel implements EditorView {
 	@Override
 	public void clearStrategySelection() {
 		strategyButtonGroup.clearSelection();
+	}
+
+	@Override
+	public void setLatexCommands(Map<String, List<LatexCommand>> commands) {
+		firePropertyChange(COMMANDS_CHANGED_PROPERTY, null, commands);
+	}
+
+	@Override
+	public JMenu getLatexCommandsMenu() {
+		return commandsMenu;
 	}
 }

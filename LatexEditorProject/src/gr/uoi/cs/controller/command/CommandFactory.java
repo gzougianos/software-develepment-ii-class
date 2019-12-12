@@ -1,12 +1,13 @@
 package gr.uoi.cs.controller.command;
 
 import gr.uoi.cs.DocumentManager;
+import gr.uoi.cs.LatexCommandManager;
 import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.controller.command.impl.CommitVersionCommand;
 import gr.uoi.cs.controller.command.impl.CreateDocumentCommand;
 import gr.uoi.cs.controller.command.impl.DisableVersionStrategyCommand;
 import gr.uoi.cs.controller.command.impl.EnableVersionStrategyCommand;
 import gr.uoi.cs.controller.command.impl.ExitCommand;
-import gr.uoi.cs.controller.command.impl.CommitVersionCommand;
 import gr.uoi.cs.controller.command.impl.LoadExistingDocumentCommand;
 import gr.uoi.cs.controller.command.impl.RollbackVersionCommand;
 import gr.uoi.cs.controller.command.impl.SaveDocumentCommand;
@@ -17,10 +18,13 @@ public class CommandFactory {
 	private DocumentManager documentManager;
 	private VersionsManager versionsManager;
 	private MainView mainView;
+	private LatexCommandManager latexCommandManager;
 
-	public CommandFactory(DocumentManager documentManager, VersionsManager versionsManager, MainView mainView) {
+	public CommandFactory(DocumentManager documentManager, VersionsManager versionsManager,
+			LatexCommandManager latexCommandManager, MainView mainView) {
 		this.documentManager = documentManager;
 		this.versionsManager = versionsManager;
+		this.latexCommandManager = latexCommandManager;
 		this.mainView = mainView;
 	}
 
@@ -37,9 +41,9 @@ public class CommandFactory {
 			case Command.SAVE_DOCUMENT:
 				return new SaveDocumentCommand(versionsManager, documentManager, mainView);
 			case Command.CREATE_DOCUMENT:
-				return new CreateDocumentCommand(documentManager, versionsManager, mainView);
+				return new CreateDocumentCommand(documentManager, latexCommandManager, mainView);
 			case Command.LOAD_DOCUMENT:
-				return new LoadExistingDocumentCommand(documentManager, mainView);
+				return new LoadExistingDocumentCommand(documentManager, latexCommandManager, mainView);
 			case Command.SHOW_OPENING_VIEW:
 				return new ShowOpeningViewCommand(mainView);
 			case Command.EXIT:
