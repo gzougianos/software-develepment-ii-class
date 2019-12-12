@@ -1,18 +1,33 @@
 package gr.uoi.cs.controller.commands;
 
+import javax.swing.JOptionPane;
+
 import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.model.Document;
+import gr.uoi.cs.model.strategies.VersionNotFoundException;
+import gr.uoi.cs.view.MainView;
 
 public class RollbackToPreviousVersionCommand implements Command {
 	private VersionsManager versionsManager;
+	private MainView mainView;
 
-	public RollbackToPreviousVersionCommand(VersionsManager versionsManager) {
+	public RollbackToPreviousVersionCommand(VersionsManager versionsManager, MainView mainView) {
 		this.versionsManager = versionsManager;
+		this.mainView = mainView;
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		versionsManager.rollback();
+		Document document = mainView.getEditorView().getCurrentDocument();
+		try {
+			versionsManager.rollback(document);
+			mainView.getEditorView().getEditorComponent().setText(document.getContents());
+		} catch (VersionNotFoundException e) {
+			JOptionPane.showMessageDialog(mainView.component(), "There is no previous version.", "Rollback",
+					JOptionPane.ERROR_MESSAGE);
+			// e.printStackTrace();
+		}
+
 	}
 
 }

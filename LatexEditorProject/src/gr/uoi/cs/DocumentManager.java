@@ -26,7 +26,9 @@ public class DocumentManager {
 	}
 
 	public Document createDocument(DocumentType documentType) {
-		return templates.get(documentType).clone();
+		Document doc = templates.get(documentType).clone();
+		doc.setCreatedTime(System.currentTimeMillis());
+		return doc;
 	}
 
 	public void saveDocument(Document document, File path) throws IOException {

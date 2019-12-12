@@ -18,6 +18,7 @@ public class DisableVersionsManagementCommand implements Command {
 		mainView.getEditorView().getVolatileStrategyButton().setSelected(false);
 		versionsManager.disable();
 		mainView.getEditorView().getDisableStrategyButton().setEnabled(false);
+		mainView.getEditorView().getRollbackButton().setEnabled(false);
 	}
 
 }

@@ -21,7 +21,6 @@ public class Document implements Serializable {
 		this.versionId = versionId;
 		this.contents = contents;
 		this.type = type;
-		this.createdTime = System.currentTimeMillis();
 	}
 
 	public Document(DocumentType type) {
@@ -30,6 +29,10 @@ public class Document implements Serializable {
 
 	public DocumentType getType() {
 		return type;
+	}
+
+	public void setCreatedTime(long createdTime) {
+		this.createdTime = createdTime;
 	}
 
 	public void setType(DocumentType type) {
@@ -90,7 +93,9 @@ public class Document implements Serializable {
 
 	@Override
 	public Document clone() {
-		return new Document(type, author, date, copyright, versionId, contents);
+		Document clone = new Document(type, author, date, copyright, versionId, contents);
+		clone.setCreatedTime(getCreatedTime());
+		return clone;
 	}
 
 	/*

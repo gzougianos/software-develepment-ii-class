@@ -17,6 +17,10 @@ public class CommandFactory {
 
 	public Command createCommand(String commandId) {
 		switch (commandId) {
+			case Command.ROLLBACK_TO_PREVIOUS_VERSION:
+				return new RollbackToPreviousVersionCommand(versionsManager, mainView);
+			case Command.KEEP_VERSION:
+				return new KeepVersionCommand(versionsManager, mainView);
 			case Command.ENABLE_VERSION_STRATEGY:
 				return new EnableVersionsManagementCommand(versionsManager, mainView);
 			case Command.DISABLE_VERSION_STRATEGY:

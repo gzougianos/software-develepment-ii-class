@@ -1,6 +1,7 @@
 package gr.uoi.cs;
 
 import gr.uoi.cs.model.Document;
+import gr.uoi.cs.model.strategies.VersionNotFoundException;
 import gr.uoi.cs.model.strategies.VersionsStrategy;
 import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
 
@@ -11,7 +12,6 @@ public class VersionsManager {
 
 	public VersionsManager(VersionsStrategyFactory strategyFactory) {
 		this.strategyFactory = strategyFactory;
-		strategy = strategyFactory.createStrategy(VersionsStrategy.VOLATILE);
 	}
 
 	public boolean isEnabled() {
@@ -26,33 +26,44 @@ public class VersionsManager {
 		enabled = false;
 	}
 
-	public void changeStrategy(String strategyId) {
+	public void changeStrategy(String strategyId, Document document) {
 		VersionsStrategy newStrategy = strategyFactory.createStrategy(strategyId);
-		newStrategy.setEntireHistory(strategy.getEntireHistory());
+
+		if (!strategyChanged(newStrategy))
+			return; // Strategy was not changed
+
+		if (strategy != null)
+			newStrategy.setEntireHistory(document, strategy.getEntireHistory(document));
 		strategy = newStrategy;
 	}
 
-	public void putVersion(Document document) {
-		if (isEnabled())
-			strategy.putVersion(document);
-		else
+	public void keepVersion(Document document) {
+		if (!isEnabled())
 			throw new RuntimeException("Cannot keep version of document. Version Manager is currently disabled.");
+
+		document.setVersionId(document.getVersionId() + 1);
+		strategy.putVersion(document, document.getVersionId());
 	}
 
-	public void rollback() {
-		// TODO Auto-generated method stub
-//		if (isEnabled() == false) {
-//			JOptionPane.showMessageDialog(null, "Strategy is not enabled", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
-//		} else {
-//			Document doc = strategy.getVersion();
-//			if (doc == null) {
-//				JOptionPane.showMessageDialog(null, "No version available", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
-//			} else {
-//				strategy.removeVersion();
-//				latexEditorView.setCurrentDocument(doc);
-//			}
-//		}
+	public void rollback(Document document) throws VersionNotFoundException {
+		if (!isEnabled())
+			throw new RuntimeException(
+					"Cannot rollback to previous version of the document. Version Manager is currently disabled.");
 
+		int previousVersion = document.getVersionId() - 1;
+		Document previousVersionDocument = strategy.getVersion(document, previousVersion);
+
+		document.setAuthor(previousVersionDocument.getAuthor());
+		document.setContents(previousVersionDocument.getContents());
+		document.setDate(previousVersionDocument.getDate());
+		document.setCopyright(previousVersionDocument.getCopyright());
+		document.setVersionId(previousVersion);
 	}
 
+	private boolean strategyChanged(VersionsStrategy newStrategy) {
+		if (strategy == null)
+			return true;
+
+		return strategy.getClass() != newStrategy.getClass();
+	}
 }

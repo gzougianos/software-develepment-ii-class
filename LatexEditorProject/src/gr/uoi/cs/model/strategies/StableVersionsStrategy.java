@@ -1,91 +1,106 @@
 package gr.uoi.cs.model.strategies;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import gr.uoi.cs.model.Document;
 
 public class StableVersionsStrategy implements VersionsStrategy {
-	private String versionID = "";
+	private static File versionsDirectory;
 
-	@Override
-	public void putVersion(Document document) {
-		String filename = document.getVersionID() + ".tex";
-		document.save(filename);
-		versionID = document.getVersionID();
+	public StableVersionsStrategy() {
+		createVersionsDirectoryBasedOnOperatinSystem();
+	}
 
+	private void createVersionsDirectoryBasedOnOperatinSystem() {
+		String operatingSystem = (System.getProperty("os.name")).toLowerCase();
+		if (operatingSystem.contains("win"))
+			versionsDirectory = new File(System.getenv("AppData"), "LatexEditorSoftDevII");
+		else
+			// TODO: confirm that on linux/mac?
+			versionsDirectory = new File(System.getProperty("user.home"), "LatexEditorSoftDevII");
+
+		if (!versionsDirectory.exists())
+			versionsDirectory.mkdirs();
 	}
 
 	@Override
-	public Document getVersion() {
-		// TODO Auto-generated method stub
-		if (versionID.equals(""))
-			return null;
-
-		String fileContents = "";
+	public void putVersion(Document document, final int versionId) {
+		int currentVersion = document.getVersionId();
+		String fileName = nameDocumentVersion(document, currentVersion);
+		File file = new File(versionsDirectory, fileName);
 		try {
-			Scanner scanner = new Scanner(new FileInputStream(versionID + ".tex"));
-			while (scanner.hasNextLine()) {
-				fileContents = fileContents + scanner.nextLine() + "\n";
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			saveDocument(file, document);
+		} catch (IOException exception) {
+			System.err.println("There was an error while keeping version of document.");
+			exception.printStackTrace();
+		}
+	}
+
+	@Override
+	public Document getVersion(Document document, final int versionId) throws VersionNotFoundException {
+		String fileName = nameDocumentVersion(document, versionId);
+		File file = new File(versionsDirectory, fileName);
+		if (!file.exists())
+			throw new VersionNotFoundException(
+					String.format("Version %s not found for the document. File %s does not exist", versionId,
+							file.getAbsolutePath()));
+
+		try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file))) {
+			Document doc = (Document) oos.readObject();
+			return doc;
+		} catch (ClassNotFoundException | IOException e) {
+			System.err.println("There was an error while loading version " + versionId + " of document.");
 			e.printStackTrace();
 		}
-		Document document = new Document();
-		document.setContents(fileContents);
-		return document;
+		return null;
 	}
 
-	@Override
-	public void setEntireHistory(List<Document> documents) {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < documents.size(); i++) {
-			Document doc = documents.get(i);
-			doc.save(doc.getVersionID() + ".tex");
+	private void saveDocument(File file, Document document) throws IOException {
+		try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file))) {
+			outputStream.writeObject(document);
 		}
-		if (documents.size() > 0)
-			versionID = documents.get(documents.size() - 1).getVersionID();
-		else
-			versionID = "";
+	}
+
+	private String nameDocumentVersion(Document document, int versionId) {
+		return document.getCreatedTime() + "-" + versionId;
 	}
 
 	@Override
-	public List<Document> getEntireHistory() {
-		// TODO Auto-generated method stub
+	public void setEntireHistory(Document document, List<Document> documents) {
+		try {
+			clearAllVersions(document);
+		} catch (IOException e) {
+			System.err.println("There was an error while clearing version history of the document.");
+			e.printStackTrace();
+		}
+		documents.forEach(d -> putVersion(d, d.getVersionId()));
+	}
+
+	private void clearAllVersions(Document document) throws IOException {
+		for (File f : versionFiles(document)) {
+			Files.delete(f.toPath());
+		}
+	}
+
+	@Override
+	public List<Document> getEntireHistory(Document document) {
 		List<Document> documents = new ArrayList<Document>();
-		if (versionID.equals(""))
-			return documents;
-		int n = Integer.parseInt(versionID);
-		for (int i = 0; i <= n; i++) {
-			String fileContents = "";
-			try {
-				Scanner scanner = new Scanner(new FileInputStream(i + ".tex"));
-				while (scanner.hasNextLine()) {
-					fileContents = fileContents + scanner.nextLine() + "\n";
-				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Document document = new Document();
-			document.setContents(fileContents);
-			documents.add(document);
-		}
 		return documents;
 	}
 
-	@Override
-	public void removeVersion() {
-		// TODO Auto-generated method stub
-		int n = Integer.parseInt(versionID);
-		if (n == 0)
-			versionID = "";
-		else
-			versionID = (n - 1) + "";
-
+	private File[] versionFiles(Document document) {
+		return versionsDirectory.listFiles((FileFilter) f -> {
+			return f.getName().startsWith(String.valueOf(document.getCreatedTime()));
+		});
 	}
+
 }

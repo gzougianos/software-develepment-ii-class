@@ -3,6 +3,7 @@ package gr.uoi.cs.controller;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -11,16 +12,26 @@ import gr.uoi.cs.controller.commands.CommandFactory;
 import gr.uoi.cs.view.EditorView;
 
 public class EditorViewController implements DocumentListener {
+	private static final int ATTEMPT_TO_KEEP_VERSION_AFTER_EDIT_MS = 250;
 	private EditorView editorView;
 	private CommandFactory commandFactory;
+	private Timer keepVersionTimer;
 
 	public EditorViewController(EditorView editorView, CommandFactory commandFactory) {
 		this.editorView = editorView;
 		this.commandFactory = commandFactory;
 
+		initKeepVersionTimer();
 		editorView.getEditorComponent().getDocument().addDocumentListener(this);
 		registerCommands();
 		disableVersionStrategy(); // default is disabled
+	}
+
+	private void initKeepVersionTimer() {
+		keepVersionTimer = new Timer(ATTEMPT_TO_KEEP_VERSION_AFTER_EDIT_MS, e -> {
+			commandFactory.createCommand(Command.KEEP_VERSION).execute();
+		});
+		keepVersionTimer.setRepeats(false);
 	}
 
 	private void registerCommands() {
@@ -33,6 +44,11 @@ public class EditorViewController implements DocumentListener {
 		ActionListener enableVersionStrategyListener = e -> enableVersionStrategy();
 		editorView.getVolatileStrategyButton().addActionListener(enableVersionStrategyListener);
 		editorView.getStableStrategyButton().addActionListener(enableVersionStrategyListener);
+		editorView.getRollbackButton().addActionListener(e -> rollback());
+	}
+
+	private void rollback() {
+		commandFactory.createCommand(Command.ROLLBACK_TO_PREVIOUS_VERSION).execute();
 	}
 
 	private void registerFileRelatedCommands() {
@@ -84,16 +100,26 @@ public class EditorViewController implements DocumentListener {
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		updateSaveButtonAvailability();
+		if (e.getLength() != editorView.getEditorComponent().getText().length()) {
+			keepVersionTimer.restart();
+		}
+
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 		updateSaveButtonAvailability();
+		if (e.getOffset() != 0 || editorView.getEditorComponent().getText().length() != 0) {
+			keepVersionTimer.restart();
+		}
+
 	}
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
 		updateSaveButtonAvailability();
+		if (e.getLength() != editorView.getEditorComponent().getText().length())
+			keepVersionTimer.restart();
 	}
 
 	private void updateSaveButtonAvailability() {
