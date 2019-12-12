@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.DocumentManager;
-import gr.uoi.cs.controller.command.impl.LoadExistingDocumentCommand;
+import gr.uoi.cs.LatexCommandManager;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.DocumentType;
 import gr.uoi.cs.view.MainView;
@@ -27,7 +27,8 @@ public class LoadDocumentCommandTests {
 		doc.setContents("hei");
 		documentManager.saveDocument(doc, testFile);
 
-		LoadExistingDocumentCommand command = new LoadExistingDocumentCommand(documentManager, mainView, () -> testFile);
+		LoadExistingDocumentCommand command = new LoadExistingDocumentCommand(documentManager,
+				new LatexCommandManager(), mainView, () -> testFile);
 		command.execute();
 		assertEquals(doc, mainView.getEditorView().getCurrentDocument());
 	}

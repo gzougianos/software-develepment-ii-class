@@ -9,11 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.DocumentManager;
-import gr.uoi.cs.VersionsManager;
-import gr.uoi.cs.controller.command.impl.CreateDocumentCommand;
+import gr.uoi.cs.LatexCommandManager;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.DocumentType;
-import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
 import gr.uoi.cs.view.MainView;
 import gr.uoi.cs.view.OpeningView;
 import gr.uoi.cs.view.impl.MainFrame;
@@ -23,11 +21,10 @@ public class CreateDocumentCommandTests {
 
 	private DocumentManager documentManager;
 	private MainView mainView;
-	private VersionsManager versionsManager;
 
 	@Test
 	public void main() {
-		CreateDocumentCommand command = new CreateDocumentCommand(documentManager, versionsManager, mainView);
+		CreateDocumentCommand command = new CreateDocumentCommand(documentManager, new LatexCommandManager(), mainView);
 		command.execute();
 
 		Document doc = mainView.getEditorView().getCurrentDocument();
@@ -40,7 +37,6 @@ public class CreateDocumentCommandTests {
 	@BeforeEach
 	public void init() throws IOException {
 		documentManager = new DocumentManager();
-		versionsManager = new VersionsManager(new VersionsStrategyFactory());
 		OpeningView openingView = new OpeningPanel() {
 			@Override
 			public DocumentType getSelectedDocumentType() {
