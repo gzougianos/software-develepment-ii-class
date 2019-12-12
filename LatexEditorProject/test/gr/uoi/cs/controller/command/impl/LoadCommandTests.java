@@ -1,4 +1,4 @@
-package gr.uoi.cs.controller.commands;
+package gr.uoi.cs.controller.command.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
