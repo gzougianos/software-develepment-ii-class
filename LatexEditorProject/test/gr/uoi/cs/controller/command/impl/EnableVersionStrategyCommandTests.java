@@ -5,7 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import gr.uoi.cs.DocumentManager;
 import gr.uoi.cs.VersionsManager;
+import gr.uoi.cs.model.Document;
+import gr.uoi.cs.model.DocumentType;
 import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
 import gr.uoi.cs.view.MainView;
 import gr.uoi.cs.view.impl.MainFrame;
@@ -17,6 +20,9 @@ public class EnableVersionStrategyCommandTests {
 		assertFalse(manager.isEnabled());
 
 		MainView view = new MainFrame();
+		Document document = new DocumentManager().createDocument(DocumentType.ARTICLE);
+		view.getEditorView().setCurrentDocument(document);
+
 		view.getEditorView().getVolatileStrategyButton().setSelected(true);
 		EnableVersionStrategyCommand command = new EnableVersionStrategyCommand(manager, view);
 		command.execute();
