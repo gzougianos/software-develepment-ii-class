@@ -10,13 +10,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.DocumentManager;
-import gr.uoi.cs.controller.command.impl.LoadCommand;
+import gr.uoi.cs.controller.command.impl.LoadExistingDocumentCommand;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.DocumentType;
 import gr.uoi.cs.view.MainView;
 import gr.uoi.cs.view.impl.MainFrame;
 
-public class LoadCommandTests {
+public class LoadDocumentCommandTests {
 	private static final File testFile = new File(System.getProperty("java.io.tmpdir"), "test_document.tex");
 	private DocumentManager documentManager;
 	private MainView mainView;
@@ -27,7 +27,7 @@ public class LoadCommandTests {
 		doc.setContents("hei");
 		documentManager.saveDocument(doc, testFile);
 
-		LoadCommand command = new LoadCommand(documentManager, mainView, () -> testFile);
+		LoadExistingDocumentCommand command = new LoadExistingDocumentCommand(documentManager, mainView, () -> testFile);
 		command.execute();
 		assertEquals(doc, mainView.getEditorView().getCurrentDocument());
 	}

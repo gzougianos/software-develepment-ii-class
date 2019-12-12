@@ -13,19 +13,19 @@ import gr.uoi.cs.model.Document;
 import gr.uoi.cs.support.TexFileFilter;
 import gr.uoi.cs.view.MainView;
 
-public class LoadCommand implements Command {
+public class LoadExistingDocumentCommand implements Command {
 	private static final File desktopDirectory = new File(System.getProperty("user.home"), "Desktop");
 	private DocumentManager documentManager;
 	private MainView mainView;
 	private Supplier<File> documentFileSupplier;
 
-	public LoadCommand(DocumentManager documentManager, MainView mainView, Supplier<File> documentFileSupplier) {
+	public LoadExistingDocumentCommand(DocumentManager documentManager, MainView mainView, Supplier<File> documentFileSupplier) {
 		this.documentManager = documentManager;
 		this.mainView = mainView;
 		this.documentFileSupplier = documentFileSupplier;
 	}
 
-	public LoadCommand(DocumentManager documentManager, MainView mainView) {
+	public LoadExistingDocumentCommand(DocumentManager documentManager, MainView mainView) {
 		this.documentManager = documentManager;
 		this.mainView = mainView;
 		this.documentFileSupplier = this::selectFileWithFileChooser;

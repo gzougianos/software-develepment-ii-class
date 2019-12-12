@@ -7,12 +7,12 @@ import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.DocumentType;
 import gr.uoi.cs.view.MainView;
 
-public class CreateCommand implements Command {
+public class CreateDocumentCommand implements Command {
 	private DocumentManager documentManager;
 	private VersionsManager versionsManager;
 	private MainView mainView;
 
-	public CreateCommand(DocumentManager documentManager, VersionsManager versionsManager, MainView mainView) {
+	public CreateDocumentCommand(DocumentManager documentManager, VersionsManager versionsManager, MainView mainView) {
 		this.documentManager = documentManager;
 		this.versionsManager = versionsManager;
 		this.mainView = mainView;

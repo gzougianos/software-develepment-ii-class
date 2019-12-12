@@ -6,11 +6,11 @@ import gr.uoi.cs.model.Document;
 import gr.uoi.cs.view.EditorView;
 import gr.uoi.cs.view.MainView;
 
-public class KeepVersionCommand implements Command {
+public class CommitVersionCommand implements Command {
 	private VersionsManager versionsManager;
 	private MainView mainView;
 
-	public KeepVersionCommand(VersionsManager versionsManager, MainView mainView) {
+	public CommitVersionCommand(VersionsManager versionsManager, MainView mainView) {
 		this.versionsManager = versionsManager;
 		this.mainView = mainView;
 	}
@@ -22,7 +22,7 @@ public class KeepVersionCommand implements Command {
 		String previousContents = document.getContents();
 		document.setContents(editorView.getEditorComponent().getText());
 		if (versionsManager.isEnabled())
-			versionsManager.keepVersion(document);
+			versionsManager.commitVersion(document);
 		document.setContents(previousContents);
 	}
 

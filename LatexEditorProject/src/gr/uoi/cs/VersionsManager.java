@@ -37,7 +37,7 @@ public class VersionsManager {
 		strategy = newStrategy;
 	}
 
-	public void keepVersion(Document document) {
+	public void commitVersion(Document document) {
 		if (!isEnabled())
 			throw new RuntimeException("Cannot keep version of document. Version Manager is currently disabled.");
 

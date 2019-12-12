@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.DocumentManager;
 import gr.uoi.cs.VersionsManager;
-import gr.uoi.cs.controller.command.impl.CreateCommand;
+import gr.uoi.cs.controller.command.impl.CreateDocumentCommand;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.DocumentType;
 import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
@@ -19,7 +19,7 @@ import gr.uoi.cs.view.OpeningView;
 import gr.uoi.cs.view.impl.MainFrame;
 import gr.uoi.cs.view.impl.OpeningPanel;
 
-public class CreateCommandTests {
+public class CreateDocumentCommandTests {
 
 	private DocumentManager documentManager;
 	private MainView mainView;
@@ -27,7 +27,7 @@ public class CreateCommandTests {
 
 	@Test
 	public void main() {
-		CreateCommand command = new CreateCommand(documentManager, versionsManager, mainView);
+		CreateDocumentCommand command = new CreateDocumentCommand(documentManager, versionsManager, mainView);
 		command.execute();
 
 		Document doc = mainView.getEditorView().getCurrentDocument();

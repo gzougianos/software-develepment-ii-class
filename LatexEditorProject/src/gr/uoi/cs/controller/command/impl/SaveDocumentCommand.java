@@ -14,21 +14,21 @@ import gr.uoi.cs.model.Document;
 import gr.uoi.cs.support.TexFileFilter;
 import gr.uoi.cs.view.MainView;
 
-public class SaveCommand implements Command {
+public class SaveDocumentCommand implements Command {
 	private static final File desktopDirectory = new File(System.getProperty("user.home"), "Desktop");
 	private VersionsManager versionsManager;
 	private DocumentManager documentManager;
 	private MainView mainView;
 	private Supplier<File> documentFileSupplier;
 
-	public SaveCommand(VersionsManager versionsManager, DocumentManager documentManager, MainView mainView) {
+	public SaveDocumentCommand(VersionsManager versionsManager, DocumentManager documentManager, MainView mainView) {
 		this.versionsManager = versionsManager;
 		this.documentManager = documentManager;
 		this.mainView = mainView;
 		this.documentFileSupplier = this::selectFileWithFileChooser;
 	}
 
-	public SaveCommand(VersionsManager versionsManager, DocumentManager documentManager, MainView mainView,
+	public SaveDocumentCommand(VersionsManager versionsManager, DocumentManager documentManager, MainView mainView,
 			Supplier<File> documentFileSupplier) {
 		this(versionsManager, documentManager, mainView);
 		this.documentFileSupplier = documentFileSupplier;

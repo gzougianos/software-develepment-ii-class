@@ -7,11 +7,11 @@ import gr.uoi.cs.model.strategies.VersionsStrategy;
 import gr.uoi.cs.view.EditorView;
 import gr.uoi.cs.view.MainView;
 
-public class EnableVersionsManagementCommand implements Command {
+public class EnableVersionStrategyCommand implements Command {
 	private VersionsManager versionsManager;
 	private MainView mainView;
 
-	public EnableVersionsManagementCommand(VersionsManager versionsManager, MainView mainView) {
+	public EnableVersionStrategyCommand(VersionsManager versionsManager, MainView mainView) {
 		super();
 		this.versionsManager = versionsManager;
 		this.mainView = mainView;
@@ -27,7 +27,7 @@ public class EnableVersionsManagementCommand implements Command {
 		versionsManager.enable();
 		versionsManager.changeStrategy(versionStrategyId, document);
 		if (!wasEnabled)
-			versionsManager.keepVersion(document);
+			versionsManager.commitVersion(document);
 	}
 
 	private String getVersionStrategyIdAccordingToWhichButtonIsSelected() {

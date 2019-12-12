@@ -8,11 +8,11 @@ import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.strategies.VersionNotFoundException;
 import gr.uoi.cs.view.MainView;
 
-public class RollbackToPreviousVersionCommand implements Command {
+public class RollbackVersionCommand implements Command {
 	private VersionsManager versionsManager;
 	private MainView mainView;
 
-	public RollbackToPreviousVersionCommand(VersionsManager versionsManager, MainView mainView) {
+	public RollbackVersionCommand(VersionsManager versionsManager, MainView mainView) {
 		this.versionsManager = versionsManager;
 		this.mainView = mainView;
 	}

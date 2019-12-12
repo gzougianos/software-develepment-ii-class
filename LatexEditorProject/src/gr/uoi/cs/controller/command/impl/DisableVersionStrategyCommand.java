@@ -4,11 +4,11 @@ import gr.uoi.cs.VersionsManager;
 import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.view.MainView;
 
-public class DisableVersionsManagementCommand implements Command {
+public class DisableVersionStrategyCommand implements Command {
 	private VersionsManager versionsManager;
 	private MainView mainView;
 
-	public DisableVersionsManagementCommand(VersionsManager versionsManager, MainView mainView) {
+	public DisableVersionStrategyCommand(VersionsManager versionsManager, MainView mainView) {
 		this.versionsManager = versionsManager;
 		this.mainView = mainView;
 	}

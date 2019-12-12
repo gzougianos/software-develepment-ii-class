@@ -13,14 +13,14 @@ import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.DocumentManager;
 import gr.uoi.cs.VersionsManager;
-import gr.uoi.cs.controller.command.impl.SaveCommand;
+import gr.uoi.cs.controller.command.impl.SaveDocumentCommand;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.DocumentType;
 import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
 import gr.uoi.cs.view.MainView;
 import gr.uoi.cs.view.impl.MainFrame;
 
-public class SaveCommandTests {
+public class SaveDocumentCommandTests {
 	private static final File testFile = new File(System.getProperty("java.io.tmpdir"), "test_document.tex");
 	private DocumentManager documentManager;
 	private VersionsManager versionsManager;
@@ -33,7 +33,7 @@ public class SaveCommandTests {
 		JTextComponent textComponent = mainView.getEditorView().getEditorComponent();
 		textComponent.setText("contents");
 
-		SaveCommand command = new SaveCommand(versionsManager, documentManager, mainView, () -> testFile);
+		SaveDocumentCommand command = new SaveDocumentCommand(versionsManager, documentManager, mainView, () -> testFile);
 		command.execute();
 		assertEquals("contents", doc.getContents());
 
@@ -44,7 +44,7 @@ public class SaveCommandTests {
 		textComponent.setText("hello");
 
 		// With null file supplier NPE shouldn't take place since it does not rely on it
-		command = new SaveCommand(versionsManager, documentManager, mainView, () -> null);
+		command = new SaveDocumentCommand(versionsManager, documentManager, mainView, () -> null);
 		command.execute();
 		assertEquals(textComponent.getText(), doc.getContents());
 
