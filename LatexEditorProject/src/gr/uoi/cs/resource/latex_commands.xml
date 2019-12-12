@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<commands>
+	<category name="Chapter">
+		<command name="CHAPTER">
+			<description>Add chapter</description>
+			<allowed_documents>ALL</allowed_documents>
+			<disallowed_documents>LETTER,ARTICLE</disallowed_documents>
+			<content>\chapter{...}
+			</content>
+		</command>
+	</category>
+	<category name="Section">
+		<command name="SECTION">
+			<description>Add section</description>
+			<allowed_documents>ALL</allowed_documents>
+			<disallowed_documents>LETTER</disallowed_documents>
+			<content>\section{}</content>
+		</command>
+
+		<command name="SUBSECTION">
+			<description>Add subsection</description>
+			<allowed_documents>ALL</allowed_documents>
+			<disallowed_documents>LETTER</disallowed_documents>
+			<content>\subsection{}</content>
+		</command>
+
+		<command name="SUBSUBSECTION">
+			<description>Add subsubsection</description>
+			<allowed_documents>ALL</allowed_documents>
+			<disallowed_documents>LETTER</disallowed_documents>
+			<content>\subsubsection{}</content>
+		</command>
+	</category>
+
+	<category name="Enumeration">
+		<command name="BEGIN_ITEMIZE">
+			<description>Add enumeration list</description>
+			<allowed_documents>ALL</allowed_documents>
+			<disallowed_documents>LETTER</disallowed_documents>
+			<content>\begin{itemize} \n\item ... \n\item ... \n\end{itemize}
+			</content>
+		</command>
+
+		<command name="BEGIN_ENUMERATE">
+			<description>Add enumeration list</description>
+			<allowed_documents>ALL</allowed_documents>
+			<disallowed_documents>LETTER</disallowed_documents>
+			<content>
+				\begin{enumerate}
+				\item ...
+				\item ...
+				\end{enumerate}
+			</content>
+		</command>
+	</category>
+
+	<category name="Table">
+		<command name="BEGIN_TABLE">
+			<description>Add a table</description>
+			<allowed_documents>ALL</allowed_documents>
+			<disallowed_documents>LETTER</disallowed_documents>
+			<content>
+				\begin{table}
+				\caption{...}\label{...}
+				\begin{tabular}{|c|c|c|}
+				\hline
+				...&amp;...&amp;...\\
+				...&amp;...&amp;...\\
+				...&amp;...&amp;...\\
+				\hline
+				\end{tabular}
+				\end{table}
+			</content>
+		</command>
+	</category>
+
+	<category name="Figure">
+		<command name="BEGIN_FIGURE">
+			<allowed_documents>ALL</allowed_documents>
+			<disallowed_documents>LETTER</disallowed_documents>
+			<content>
+				\begin{figure}
+				\includegraphics[width=...,height=...]{...}
+				\caption{...}\label{...}
+				\end{figure}
+			</content>
+		</command>
+	</category>
+</commands>
