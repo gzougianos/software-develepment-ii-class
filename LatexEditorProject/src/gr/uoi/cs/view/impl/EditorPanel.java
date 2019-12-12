@@ -3,6 +3,7 @@ package gr.uoi.cs.view.impl;
 import java.awt.BorderLayout;
 
 import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -28,6 +29,7 @@ public class EditorPanel extends JPanel implements EditorView {
 	private AbstractButton disableStrategyButton;
 	private AbstractButton rollbackButton;
 	private JMenuBar menuBar;
+	private ButtonGroup strategyButtonGroup;
 
 	public EditorPanel() {
 		super();
@@ -43,6 +45,10 @@ public class EditorPanel extends JPanel implements EditorView {
 		menuBar = new JMenuBar();
 		menuBar.add(createFileMenu());
 		menuBar.add(createStrategyMenu());
+
+		strategyButtonGroup = new ButtonGroup();
+		strategyButtonGroup.add(volatileStrategyButton);
+		strategyButtonGroup.add(stableStrategyButton);
 
 	}
 
@@ -149,5 +155,10 @@ public class EditorPanel extends JPanel implements EditorView {
 	@Override
 	public JMenuBar getMenuBar() {
 		return menuBar;
+	}
+
+	@Override
+	public void clearStrategySelection() {
+		strategyButtonGroup.clearSelection();
 	}
 }

@@ -32,4 +32,6 @@ public interface EditorView extends View<JPanel> {
 	Document getCurrentDocument();
 
 	void setCurrentDocument(Document document);
+
+	void clearStrategySelection();
 }
