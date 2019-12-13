@@ -39,7 +39,7 @@ public class CommandFactory {
 			case Command.DISABLE_VERSION_STRATEGY:
 				return new DisableVersionStrategyCommand(versionsManager, mainView);
 			case Command.SAVE_DOCUMENT:
-				return new SaveDocumentCommand(versionsManager, documentManager, mainView);
+				return new SaveDocumentCommand(documentManager, mainView);
 			case Command.CREATE_DOCUMENT:
 				return new CreateDocumentCommand(documentManager, latexCommandManager, mainView);
 			case Command.LOAD_DOCUMENT:

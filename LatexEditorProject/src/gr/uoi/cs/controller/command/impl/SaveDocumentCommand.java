@@ -8,7 +8,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import gr.uoi.cs.DocumentManager;
-import gr.uoi.cs.VersionsManager;
 import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.support.TexFileFilter;
@@ -16,21 +15,19 @@ import gr.uoi.cs.view.MainView;
 
 public class SaveDocumentCommand implements Command {
 	private static final File desktopDirectory = new File(System.getProperty("user.home"), "Desktop");
-	private VersionsManager versionsManager;
 	private DocumentManager documentManager;
 	private MainView mainView;
 	private Supplier<File> documentFileSupplier;
 
-	public SaveDocumentCommand(VersionsManager versionsManager, DocumentManager documentManager, MainView mainView) {
-		this.versionsManager = versionsManager;
+	public SaveDocumentCommand(DocumentManager documentManager, MainView mainView) {
 		this.documentManager = documentManager;
 		this.mainView = mainView;
 		this.documentFileSupplier = this::selectFileWithFileChooser;
 	}
 
-	public SaveDocumentCommand(VersionsManager versionsManager, DocumentManager documentManager, MainView mainView,
+	public SaveDocumentCommand(DocumentManager documentManager, MainView mainView,
 			Supplier<File> documentFileSupplier) {
-		this(versionsManager, documentManager, mainView);
+		this(documentManager, mainView);
 		this.documentFileSupplier = documentFileSupplier;
 	}
 
