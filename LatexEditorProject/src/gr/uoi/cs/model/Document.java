@@ -13,6 +13,7 @@ public class Document implements Serializable {
 	private DocumentType type;
 	private long createdTime;
 	private transient File path;
+	private String encryptionAlgorithm;
 
 	private Document(DocumentType type, String author, String date, String copyright, int versionId, String contents) {
 		this.author = author;
@@ -95,6 +96,7 @@ public class Document implements Serializable {
 	public Document clone() {
 		Document clone = new Document(type, author, date, copyright, versionId, contents);
 		clone.setCreatedTime(getCreatedTime());
+		clone.setEncryptionAlgorithm(getEncryptionAlgorithm());
 		return clone;
 	}
 
@@ -139,4 +141,15 @@ public class Document implements Serializable {
 		return true;
 	}
 
+	public String getEncryptionAlgorithm() {
+		return encryptionAlgorithm;
+	}
+
+	public void setEncryptionAlgorithm(String encryptionAlgorithm) {
+		this.encryptionAlgorithm = encryptionAlgorithm;
+	}
+
+	public boolean isEncrypted() {
+		return getEncryptionAlgorithm() != null;
+	}
 }
