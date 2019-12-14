@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.DocumentManager;
+import gr.uoi.cs.EncryptionManager;
 import gr.uoi.cs.LatexCommandManager;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.DocumentType;
@@ -28,7 +29,7 @@ public class LoadDocumentCommandTests {
 		documentManager.saveDocument(doc, testFile);
 
 		LoadExistingDocumentCommand command = new LoadExistingDocumentCommand(documentManager,
-				new LatexCommandManager(), mainView, () -> testFile);
+				new LatexCommandManager(), new EncryptionManager(), mainView, () -> testFile);
 		command.execute();
 		assertEquals(doc, mainView.getEditorView().getCurrentDocument());
 	}

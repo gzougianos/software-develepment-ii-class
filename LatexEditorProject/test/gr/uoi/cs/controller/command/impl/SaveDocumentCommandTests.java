@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.DocumentManager;
+import gr.uoi.cs.EncryptionManager;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.DocumentType;
 import gr.uoi.cs.view.MainView;
@@ -29,7 +30,8 @@ public class SaveDocumentCommandTests {
 		JTextComponent textComponent = mainView.getEditorView().getEditorComponent();
 		textComponent.setText("contents");
 
-		SaveDocumentCommand command = new SaveDocumentCommand(documentManager, mainView, () -> testFile);
+		SaveDocumentCommand command = new SaveDocumentCommand(documentManager, new EncryptionManager(), mainView,
+				() -> testFile);
 		command.execute();
 		assertEquals("contents", doc.getContents());
 
@@ -40,7 +42,7 @@ public class SaveDocumentCommandTests {
 		textComponent.setText("hello");
 
 		// With null file supplier NPE shouldn't take place since it does not rely on it
-		command = new SaveDocumentCommand(documentManager, mainView, () -> null);
+		command = new SaveDocumentCommand(documentManager, new EncryptionManager(), mainView, () -> null);
 		command.execute();
 		assertEquals(textComponent.getText(), doc.getContents());
 
