@@ -10,7 +10,8 @@ public class EncryptionStrategyFactory {
 				return new AtbashEncryptionStrategy();
 			case EncryptionStrategy.ROT_13:
 				return new Rot13EncryptionStrategy();
+			default:
+				return new DefaultEncryptionStrategy();
 		}
-		return null;
 	}
 }
