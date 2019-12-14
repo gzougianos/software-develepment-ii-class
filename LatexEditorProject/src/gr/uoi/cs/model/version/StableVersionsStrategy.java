@@ -1,4 +1,4 @@
-package gr.uoi.cs.model.strategies;
+package gr.uoi.cs.model.version;
 
 import java.io.File;
 import java.io.FileFilter;

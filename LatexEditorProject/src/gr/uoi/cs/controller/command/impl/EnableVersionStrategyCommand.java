@@ -3,7 +3,7 @@ package gr.uoi.cs.controller.command.impl;
 import gr.uoi.cs.VersionsManager;
 import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.model.Document;
-import gr.uoi.cs.model.strategies.VersionsStrategy;
+import gr.uoi.cs.model.version.VersionsStrategy;
 import gr.uoi.cs.view.EditorView;
 import gr.uoi.cs.view.MainView;
 

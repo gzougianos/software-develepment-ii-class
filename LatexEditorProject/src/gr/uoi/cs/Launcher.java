@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 
 import gr.uoi.cs.controller.MainViewController;
 import gr.uoi.cs.controller.command.CommandFactory;
-import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
+import gr.uoi.cs.model.version.VersionsStrategyFactory;
 import gr.uoi.cs.view.impl.MainFrame;
 
 public class Launcher implements Runnable {

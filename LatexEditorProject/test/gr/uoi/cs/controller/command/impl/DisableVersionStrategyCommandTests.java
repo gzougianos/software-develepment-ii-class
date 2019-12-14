@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import gr.uoi.cs.VersionsManager;
-import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
+import gr.uoi.cs.model.version.VersionsStrategyFactory;
 import gr.uoi.cs.view.MainView;
 import gr.uoi.cs.view.impl.MainFrame;
 

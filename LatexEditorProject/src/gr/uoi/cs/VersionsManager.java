@@ -1,9 +1,9 @@
 package gr.uoi.cs;
 
 import gr.uoi.cs.model.Document;
-import gr.uoi.cs.model.strategies.VersionNotFoundException;
-import gr.uoi.cs.model.strategies.VersionsStrategy;
-import gr.uoi.cs.model.strategies.VersionsStrategyFactory;
+import gr.uoi.cs.model.version.VersionNotFoundException;
+import gr.uoi.cs.model.version.VersionsStrategy;
+import gr.uoi.cs.model.version.VersionsStrategyFactory;
 
 public class VersionsManager {
 	private boolean enabled;
