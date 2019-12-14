@@ -58,6 +58,7 @@ public class VersionsManager {
 		document.setDate(previousVersionDocument.getDate());
 		document.setCopyright(previousVersionDocument.getCopyright());
 		document.setVersionId(previousVersion);
+		document.setEncryptionAlgorithm(previousVersionDocument.getEncryptionAlgorithm());
 	}
 
 	private boolean strategyChanged(VersionsStrategy newStrategy) {

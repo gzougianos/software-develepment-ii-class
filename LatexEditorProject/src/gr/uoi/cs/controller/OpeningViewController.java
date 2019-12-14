@@ -31,10 +31,12 @@ public class OpeningViewController {
 
 	private void createDocument() {
 		commandFactory.createCommand(Command.CREATE_DOCUMENT).execute();
+		commandFactory.createCommand(Command.DISABLE_ENCRYPTION_STRATEGY).execute();
 	}
 
 	private void openExistingDocument() {
 		commandFactory.createCommand(Command.LOAD_DOCUMENT).execute();
+//		commandFactory.createCommand(Command.DISABLE_ENCRYPTION_STRATEGY).execute();
 	}
 
 	private void showDocumentTypeSelection() {

@@ -34,6 +34,10 @@ public class EditorPanel extends JPanel implements EditorView {
 	private JMenuBar menuBar;
 	private ButtonGroup strategyButtonGroup;
 	private JMenu commandsMenu;
+	private ButtonGroup encryptionButtonGroup;
+	private JMenuItem atbashEncryptionMenuItem;
+	private JMenuItem rot13EncryptionMenuItem;
+	private JMenuItem disableEncryptionMenuItem;
 
 	public EditorPanel() {
 		super();
@@ -50,11 +54,34 @@ public class EditorPanel extends JPanel implements EditorView {
 		menuBar.add(createFileMenu());
 		menuBar.add(commandsMenu = new JMenu("Latex Commands"));
 		menuBar.add(createStrategyMenu());
+		menuBar.add(createEncryptionMenu());
 
 		strategyButtonGroup = new ButtonGroup();
 		strategyButtonGroup.add(volatileStrategyButton);
 		strategyButtonGroup.add(stableStrategyButton);
 
+	}
+
+	private JMenu createEncryptionMenu() {
+		JMenu encrytpionMenu = new JMenu("Encryption");
+
+		JMenu enableEncryptionMenu = new JMenu("Enable");
+		enableEncryptionMenu.add(enableEncryptionMenu);
+
+		atbashEncryptionMenuItem = new JCheckBoxMenuItem("Atbash");
+		enableEncryptionMenu.add(atbashEncryptionMenuItem);
+
+		rot13EncryptionMenuItem = new JCheckBoxMenuItem("Rot-13");
+		enableEncryptionMenu.add(rot13EncryptionMenuItem);
+		encrytpionMenu.add(enableEncryptionMenu);
+
+		encryptionButtonGroup = new ButtonGroup();
+		encryptionButtonGroup.add(atbashEncryptionMenuItem);
+		encryptionButtonGroup.add(rot13EncryptionMenuItem);
+
+		disableEncryptionMenuItem = new JMenuItem("Disable");
+		encrytpionMenu.add(disableEncryptionMenuItem);
+		return encrytpionMenu;
 	}
 
 	private JMenu createStrategyMenu() {
@@ -149,7 +176,9 @@ public class EditorPanel extends JPanel implements EditorView {
 
 	@Override
 	public void setCurrentDocument(Document currentDocument) {
+		Document oldDocument = getCurrentDocument();
 		this.currentDocument = currentDocument;
+		firePropertyChange(DOCUMENT_CHANGED_PROPERTY, oldDocument, getCurrentDocument());
 	}
 
 	@Override
@@ -175,5 +204,25 @@ public class EditorPanel extends JPanel implements EditorView {
 	@Override
 	public JMenu getLatexCommandsMenu() {
 		return commandsMenu;
+	}
+
+	@Override
+	public void clearEncryptionSelection() {
+		encryptionButtonGroup.clearSelection();
+	}
+
+	@Override
+	public AbstractButton getRot13EncryptionStrategyButton() {
+		return rot13EncryptionMenuItem;
+	}
+
+	@Override
+	public AbstractButton getAtbashEncryptionStrategyButton() {
+		return atbashEncryptionMenuItem;
+	}
+
+	@Override
+	public AbstractButton getDisableEncryptionStrategyButton() {
+		return disableEncryptionMenuItem;
 	}
 }

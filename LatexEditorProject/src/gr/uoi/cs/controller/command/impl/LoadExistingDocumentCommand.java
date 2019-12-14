@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import gr.uoi.cs.DocumentManager;
+import gr.uoi.cs.EncryptionManager;
 import gr.uoi.cs.LatexCommandManager;
 import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.model.Document;
@@ -23,19 +24,22 @@ public class LoadExistingDocumentCommand implements Command {
 	private MainView mainView;
 	private Supplier<File> documentFileSupplier;
 	private LatexCommandManager latexCommandManager;
+	private EncryptionManager encryptionManager;
 
 	public LoadExistingDocumentCommand(DocumentManager documentManager, LatexCommandManager latexCommandManager,
-			MainView mainView, Supplier<File> documentFileSupplier) {
+			EncryptionManager encryptionManager, MainView mainView, Supplier<File> documentFileSupplier) {
 		this.documentManager = documentManager;
 		this.latexCommandManager = latexCommandManager;
+		this.encryptionManager = encryptionManager;
 		this.mainView = mainView;
 		this.documentFileSupplier = documentFileSupplier;
 	}
 
 	public LoadExistingDocumentCommand(DocumentManager documentManager, LatexCommandManager latexCommandManager,
-			MainView mainView) {
+			EncryptionManager encryptionManager, MainView mainView) {
 		this.documentManager = documentManager;
 		this.latexCommandManager = latexCommandManager;
+		this.encryptionManager = encryptionManager;
 		this.mainView = mainView;
 		this.documentFileSupplier = this::selectFileWithFileChooser;
 	}
@@ -48,6 +52,8 @@ public class LoadExistingDocumentCommand implements Command {
 
 		try {
 			Document document = documentManager.loadDocument(documentFile);
+			if (document.isEncrypted())
+				encryptionManager.decrypt(document);
 			mainView.getEditorView().setCurrentDocument(document);
 			mainView.getEditorView().getEditorComponent().setText(document.getContents());
 			mainView.showEditorView();

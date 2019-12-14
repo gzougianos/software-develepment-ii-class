@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import gr.uoi.cs.DocumentManager;
+import gr.uoi.cs.EncryptionManager;
 import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.model.Document;
 import gr.uoi.cs.support.TexFileFilter;
@@ -18,16 +19,19 @@ public class SaveDocumentCommand implements Command {
 	private DocumentManager documentManager;
 	private MainView mainView;
 	private Supplier<File> documentFileSupplier;
+	private EncryptionManager encryptionManager;
 
-	public SaveDocumentCommand(DocumentManager documentManager, MainView mainView) {
+	public SaveDocumentCommand(DocumentManager documentManager, EncryptionManager encryptionManager,
+			MainView mainView) {
 		this.documentManager = documentManager;
+		this.encryptionManager = encryptionManager;
 		this.mainView = mainView;
 		this.documentFileSupplier = this::selectFileWithFileChooser;
 	}
 
-	public SaveDocumentCommand(DocumentManager documentManager, MainView mainView,
+	public SaveDocumentCommand(DocumentManager documentManager, EncryptionManager encryptionManager, MainView mainView,
 			Supplier<File> documentFileSupplier) {
-		this(documentManager, mainView);
+		this(documentManager, encryptionManager, mainView);
 		this.documentFileSupplier = documentFileSupplier;
 	}
 
@@ -35,6 +39,8 @@ public class SaveDocumentCommand implements Command {
 	public void execute() {
 		Document document = mainView.getEditorView().getCurrentDocument();
 		document.setContents(mainView.getEditorView().getEditorComponent().getText());
+		if (document.isEncrypted())
+			encryptionManager.encrypt(document);
 
 		File file = document.getPath() != null ? document.getPath() : documentFileSupplier.get();
 

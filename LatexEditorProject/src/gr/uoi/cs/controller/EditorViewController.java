@@ -16,7 +16,9 @@ import javax.swing.text.JTextComponent;
 
 import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.controller.command.CommandFactory;
+import gr.uoi.cs.model.Document;
 import gr.uoi.cs.model.LatexCommand;
+import gr.uoi.cs.model.encryption.EncryptionStrategy;
 import gr.uoi.cs.view.EditorView;
 
 public class EditorViewController implements DocumentListener {
@@ -34,6 +36,31 @@ public class EditorViewController implements DocumentListener {
 		registerCommands();
 		disableVersionStrategy(); // default is disabled
 		registerLatexCommandsChangedListener();
+		registerDocumentChangedListener();
+	}
+
+	private void registerDocumentChangedListener() {
+		editorView.component().addPropertyChangeListener(EditorView.DOCUMENT_CHANGED_PROPERTY, this::documentChanged);
+	}
+
+	private void documentChanged(PropertyChangeEvent event) {
+		System.out.println("DOC CHANGED");
+		Document newDocument = (Document) event.getNewValue();
+		editorView.clearEncryptionSelection();
+		if (newDocument.isEncrypted()) {
+			System.out.println(newDocument.getEncryptionAlgorithm());
+			switch (newDocument.getEncryptionAlgorithm()) {
+				case EncryptionStrategy.ATBASH:
+					System.out.println("hiiii");
+					editorView.getAtbashEncryptionStrategyButton().setSelected(true);
+					break;
+				case EncryptionStrategy.ROT_13:
+					editorView.getRot13EncryptionStrategyButton().setSelected(true);
+					break;
+			}
+		} else {
+			editorView.getDisableEncryptionStrategyButton().setEnabled(false);
+		}
 	}
 
 	private void registerLatexCommandsChangedListener() {
@@ -77,6 +104,22 @@ public class EditorViewController implements DocumentListener {
 	private void registerCommands() {
 		registerFileRelatedCommands();
 		registerVersionStrategyRelatedCommands();
+		registerEncryptionStrategyRelatedCommands();
+	}
+
+	private void registerEncryptionStrategyRelatedCommands() {
+		editorView.getDisableEncryptionStrategyButton().addActionListener(e -> disableEncryption());
+		ActionListener changeEncryptionStrategyListener = e -> changeEncryption();
+		editorView.getAtbashEncryptionStrategyButton().addActionListener(changeEncryptionStrategyListener);
+		editorView.getRot13EncryptionStrategyButton().addActionListener(changeEncryptionStrategyListener);
+	}
+
+	private void changeEncryption() {
+		commandFactory.createCommand(Command.ENABLE_ENCRYPTION_STRATEGY).execute();
+	}
+
+	private void disableEncryption() {
+		commandFactory.createCommand(Command.DISABLE_ENCRYPTION_STRATEGY).execute();
 	}
 
 	private void registerVersionStrategyRelatedCommands() {

@@ -19,7 +19,12 @@ public class EncryptionManager {
 	}
 
 	public void decrypt(Document document) {
+		changeStrategy(document.getEncryptionAlgorithm());
 		strategy.decrypt(document);
+	}
+
+	public void disable() {
+		changeStrategy(EncryptionStrategy.DISABLED);
 	}
 
 }

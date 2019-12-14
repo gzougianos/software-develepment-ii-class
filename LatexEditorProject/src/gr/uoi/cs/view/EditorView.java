@@ -14,6 +14,7 @@ import gr.uoi.cs.model.LatexCommand;
 
 public interface EditorView extends View<JPanel> {
 	String COMMANDS_CHANGED_PROPERTY = "COMMANDS_CHANGED";
+	String DOCUMENT_CHANGED_PROPERTY = "DOCUMENT_CHANGED";
 
 	JMenuBar getMenuBar();
 
@@ -44,4 +45,13 @@ public interface EditorView extends View<JPanel> {
 	void setLatexCommands(Map<String, List<LatexCommand>> commands);
 
 	JMenu getLatexCommandsMenu();
+
+	void clearEncryptionSelection();
+
+	AbstractButton getRot13EncryptionStrategyButton();
+
+	AbstractButton getAtbashEncryptionStrategyButton();
+
+	AbstractButton getDisableEncryptionStrategyButton();
+
 }

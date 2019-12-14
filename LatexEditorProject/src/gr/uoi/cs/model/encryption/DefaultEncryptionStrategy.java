@@ -6,6 +6,7 @@ public class DefaultEncryptionStrategy implements EncryptionStrategy {
 
 	@Override
 	public void encrypt(Document document) {
+		document.setEncryptionAlgorithm(null);
 		// do nothing
 	}
 

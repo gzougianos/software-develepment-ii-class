@@ -6,14 +6,12 @@ public class AtbashEncryptionStrategy implements EncryptionStrategy {
 
 	@Override
 	public void encrypt(Document document) {
-		// TODO Auto-generated method stub
-
+		System.out.println("ATBASH");
 	}
 
 	@Override
 	public void decrypt(Document document) {
-		// TODO Auto-generated method stub
-
+		System.out.println("DEATBASH");
 	}
 
 }

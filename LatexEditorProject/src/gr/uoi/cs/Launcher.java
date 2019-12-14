@@ -17,7 +17,9 @@ public class Launcher implements Runnable {
 		DocumentManager documentManager = new DocumentManager();
 		VersionsManager versionsManager = new VersionsManager(new VersionsStrategyFactory());
 		LatexCommandManager latexCommandManager = new LatexCommandManager();
-		CommandFactory commandFactory = new CommandFactory(documentManager, versionsManager, latexCommandManager, view);
+		EncryptionManager encryptionManager = new EncryptionManager();
+		CommandFactory commandFactory = new CommandFactory(documentManager, versionsManager, latexCommandManager,
+				encryptionManager, view);
 		new MainViewController(commandFactory, view);
 		view.setVisible(true);
 	}
