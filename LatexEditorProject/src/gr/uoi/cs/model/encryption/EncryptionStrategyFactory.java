@@ -5,6 +5,8 @@ public class EncryptionStrategyFactory {
 	}
 
 	public static EncryptionStrategy createEncryptionStrategy(String encryptionStrategyId) {
+		if (encryptionStrategyId == null)
+			return new DefaultEncryptionStrategy();
 		switch (encryptionStrategyId) {
 			case EncryptionStrategy.ATBASH:
 				return new AtbashEncryptionStrategy();
