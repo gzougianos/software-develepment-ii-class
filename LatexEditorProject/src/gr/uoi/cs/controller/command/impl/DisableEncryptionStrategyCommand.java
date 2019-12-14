@@ -1,15 +1,12 @@
 package gr.uoi.cs.controller.command.impl;
 
-import gr.uoi.cs.EncryptionManager;
 import gr.uoi.cs.controller.command.Command;
 import gr.uoi.cs.view.MainView;
 
 public class DisableEncryptionStrategyCommand implements Command {
-	private EncryptionManager encryptionManager;
 	private MainView mainView;
 
-	public DisableEncryptionStrategyCommand(EncryptionManager encryptionManager, MainView mainView) {
-		this.encryptionManager = encryptionManager;
+	public DisableEncryptionStrategyCommand(MainView mainView) {
 		this.mainView = mainView;
 	}
 

@@ -38,7 +38,7 @@ public class CommandFactory {
 			case Command.ENABLE_ENCRYPTION_STRATEGY:
 				return new EnableEncryptionStrategyCommand(mainView);
 			case Command.DISABLE_ENCRYPTION_STRATEGY:
-				return new DisableEncryptionStrategyCommand(encryptionManager, mainView);
+				return new DisableEncryptionStrategyCommand(mainView);
 			case Command.ROLLBACK_TO_PREVIOUS_VERSION:
 				return new RollbackVersionCommand(versionsManager, encryptionManager, mainView);
 			case Command.KEEP_VERSION:
