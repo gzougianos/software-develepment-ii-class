@@ -36,7 +36,7 @@ public class CommandFactory {
 	public Command createCommand(String commandId) {
 		switch (commandId) {
 			case Command.ENABLE_ENCRYPTION_STRATEGY:
-				return new EnableEncryptionStrategyCommand(encryptionManager, mainView);
+				return new EnableEncryptionStrategyCommand(mainView);
 			case Command.DISABLE_ENCRYPTION_STRATEGY:
 				return new DisableEncryptionStrategyCommand(encryptionManager, mainView);
 			case Command.ROLLBACK_TO_PREVIOUS_VERSION:

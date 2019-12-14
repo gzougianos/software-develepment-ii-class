@@ -17,7 +17,6 @@ public class DisableEncryptionStrategyCommand implements Command {
 	public void execute() {
 		mainView.getEditorView().clearEncryptionSelection();
 		mainView.getEditorView().getDisableEncryptionStrategyButton().setEnabled(false);
-		encryptionManager.disable();
 		mainView.getEditorView().getCurrentDocument().setEncryptionAlgorithm(null);
 	}
 

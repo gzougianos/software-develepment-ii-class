@@ -5,26 +5,20 @@ import gr.uoi.cs.model.encryption.EncryptionStrategy;
 import gr.uoi.cs.model.encryption.EncryptionStrategyFactory;
 
 public class EncryptionManager {
-	private EncryptionStrategy strategy;
 
 	public EncryptionManager() {
 	}
 
-	public void changeStrategy(String encryptionStrategyId) {
-		strategy = EncryptionStrategyFactory.createEncryptionStrategy(encryptionStrategyId);
-	}
-
 	public void encrypt(Document document) {
+		EncryptionStrategy strategy = EncryptionStrategyFactory
+				.createEncryptionStrategy(document.getEncryptionAlgorithm());
 		strategy.encrypt(document);
 	}
 
 	public void decrypt(Document document) {
-		changeStrategy(document.getEncryptionAlgorithm());
+		EncryptionStrategy strategy = EncryptionStrategyFactory
+				.createEncryptionStrategy(document.getEncryptionAlgorithm());
 		strategy.decrypt(document);
-	}
-
-	public void disable() {
-		changeStrategy(EncryptionStrategy.DISABLED);
 	}
 
 }
