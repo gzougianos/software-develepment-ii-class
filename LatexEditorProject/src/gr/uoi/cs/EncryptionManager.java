@@ -5,11 +5,13 @@ import gr.uoi.cs.model.encryption.EncryptionStrategy;
 import gr.uoi.cs.model.encryption.EncryptionStrategyFactory;
 
 public class EncryptionManager {
-	private EncryptionStrategyFactory encryptionStrategyFactory;
 	private EncryptionStrategy strategy;
 
-	public EncryptionManager(EncryptionStrategyFactory encryptionStrategyFactory) {
-		this.encryptionStrategyFactory = encryptionStrategyFactory;
+	public EncryptionManager() {
+	}
+
+	public void changeStrategy(String encryptionStrategyId) {
+		strategy = EncryptionStrategyFactory.createEncryptionStrategy(encryptionStrategyId);
 	}
 
 	public void encrypt(Document document) {

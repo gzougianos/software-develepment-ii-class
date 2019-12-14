@@ -1,6 +1,9 @@
 package gr.uoi.cs.model.encryption;
 
 public class EncryptionStrategyFactory {
+	private EncryptionStrategyFactory() {
+	}
+
 	public static EncryptionStrategy createEncryptionStrategy(String encryptionStrategyId) {
 		switch (encryptionStrategyId) {
 			case EncryptionStrategy.ATBASH:
