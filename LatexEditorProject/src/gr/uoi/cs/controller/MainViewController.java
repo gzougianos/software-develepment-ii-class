@@ -20,4 +20,12 @@ public class MainViewController {
 		editorViewController = new EditorViewController(mainView.getEditorView(), commandFactory);
 	}
 
+	public EditorViewController getEditorViewController() {
+		return editorViewController;
+	}
+
+	public OpeningViewController getOpeningViewController() {
+		return openingViewController;
+	}
+
 }
