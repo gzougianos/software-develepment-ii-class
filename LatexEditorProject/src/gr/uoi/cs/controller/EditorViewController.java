@@ -96,7 +96,7 @@ public class EditorViewController implements DocumentListener {
 
 	private void initKeepVersionTimer() {
 		keepVersionTimer = new Timer(ATTEMPT_TO_KEEP_VERSION_AFTER_EDIT_MS, e -> {
-			commandFactory.createCommand(Command.KEEP_VERSION).execute();
+			commandFactory.createCommand(Command.COMMIT_VERSION).execute();
 		});
 		keepVersionTimer.setRepeats(false);
 	}
