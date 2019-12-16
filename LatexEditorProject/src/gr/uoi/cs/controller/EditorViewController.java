@@ -123,10 +123,10 @@ public class EditorViewController implements DocumentListener {
 	}
 
 	private void registerVersionStrategyRelatedCommands() {
-		editorView.getDisableStrategyButton().addActionListener(e -> disableVersionStrategy());
+		editorView.getDisableVersionStrategyButton().addActionListener(e -> disableVersionStrategy());
 		ActionListener enableVersionStrategyListener = e -> enableVersionStrategy();
-		editorView.getVolatileStrategyButton().addActionListener(enableVersionStrategyListener);
-		editorView.getStableStrategyButton().addActionListener(enableVersionStrategyListener);
+		editorView.getVolatileVersionStrategyButton().addActionListener(enableVersionStrategyListener);
+		editorView.getStableVersionStrategyButton().addActionListener(enableVersionStrategyListener);
 		editorView.getRollbackButton().addActionListener(e -> rollback());
 	}
 

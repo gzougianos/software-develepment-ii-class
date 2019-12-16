@@ -27,12 +27,12 @@ public class EditorPanel extends JPanel implements EditorView {
 	private AbstractButton saveFileButton;
 	private AbstractButton loadFileButton;
 	private AbstractButton exitButton;
-	private AbstractButton volatileStrategyButton;
-	private AbstractButton stableStrategyButton;
-	private AbstractButton disableStrategyButton;
+	private AbstractButton volateVersionStrategyButton;
+	private AbstractButton stableVersionStrategyButton;
+	private AbstractButton disableVersionStrategyButton;
 	private AbstractButton rollbackButton;
 	private JMenuBar menuBar;
-	private ButtonGroup strategyButtonGroup;
+	private ButtonGroup versionButtonGroup;
 	private JMenu commandsMenu;
 	private ButtonGroup encryptionButtonGroup;
 	private JMenuItem atbashEncryptionMenuItem;
@@ -56,9 +56,9 @@ public class EditorPanel extends JPanel implements EditorView {
 		menuBar.add(createStrategyMenu());
 		menuBar.add(createEncryptionMenu());
 
-		strategyButtonGroup = new ButtonGroup();
-		strategyButtonGroup.add(volatileStrategyButton);
-		strategyButtonGroup.add(stableStrategyButton);
+		versionButtonGroup = new ButtonGroup();
+		versionButtonGroup.add(volateVersionStrategyButton);
+		versionButtonGroup.add(stableVersionStrategyButton);
 
 	}
 
@@ -90,14 +90,14 @@ public class EditorPanel extends JPanel implements EditorView {
 		JMenu enableStrategyButton = new JMenu("Enable");
 		strategyMenu.add(enableStrategyButton);
 
-		volatileStrategyButton = new JCheckBoxMenuItem("Volatile");
-		enableStrategyButton.add(volatileStrategyButton);
+		volateVersionStrategyButton = new JCheckBoxMenuItem("Volatile");
+		enableStrategyButton.add(volateVersionStrategyButton);
 
-		stableStrategyButton = new JCheckBoxMenuItem("Stable");
-		enableStrategyButton.add(stableStrategyButton);
+		stableVersionStrategyButton = new JCheckBoxMenuItem("Stable");
+		enableStrategyButton.add(stableVersionStrategyButton);
 
-		disableStrategyButton = new JMenuItem("Disable");
-		strategyMenu.add(disableStrategyButton);
+		disableVersionStrategyButton = new JMenuItem("Disable");
+		strategyMenu.add(disableVersionStrategyButton);
 
 		rollbackButton = new JMenuItem("Rollback");
 		strategyMenu.add(rollbackButton);
@@ -155,18 +155,18 @@ public class EditorPanel extends JPanel implements EditorView {
 	}
 
 	@Override
-	public AbstractButton getVolatileStrategyButton() {
-		return volatileStrategyButton;
+	public AbstractButton getVolatileVersionStrategyButton() {
+		return volateVersionStrategyButton;
 	}
 
 	@Override
-	public AbstractButton getStableStrategyButton() {
-		return stableStrategyButton;
+	public AbstractButton getStableVersionStrategyButton() {
+		return stableVersionStrategyButton;
 	}
 
 	@Override
-	public AbstractButton getDisableStrategyButton() {
-		return disableStrategyButton;
+	public AbstractButton getDisableVersionStrategyButton() {
+		return disableVersionStrategyButton;
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class EditorPanel extends JPanel implements EditorView {
 
 	@Override
 	public void clearStrategySelection() {
-		strategyButtonGroup.clearSelection();
+		versionButtonGroup.clearSelection();
 	}
 
 	@Override

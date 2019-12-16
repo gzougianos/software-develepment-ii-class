@@ -28,11 +28,11 @@ public interface EditorView extends View<JPanel> {
 
 	AbstractButton getExitButton();
 
-	AbstractButton getVolatileStrategyButton();
+	AbstractButton getVolatileVersionStrategyButton();
 
-	AbstractButton getStableStrategyButton();
+	AbstractButton getStableVersionStrategyButton();
 
-	AbstractButton getDisableStrategyButton();
+	AbstractButton getDisableVersionStrategyButton();
 
 	AbstractButton getRollbackButton();
 

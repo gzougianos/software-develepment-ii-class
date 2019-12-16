@@ -19,7 +19,7 @@ public class DisableVersionStrategyCommandTests {
 		assertTrue(manager.isEnabled());
 
 		MainView view = new MainFrame();
-		view.getEditorView().getVolatileStrategyButton().setSelected(true);
+		view.getEditorView().getVolatileVersionStrategyButton().setSelected(true);
 		DisableVersionStrategyCommand command = new DisableVersionStrategyCommand(manager, view);
 		command.execute();
 		assertFalse(manager.isEnabled());

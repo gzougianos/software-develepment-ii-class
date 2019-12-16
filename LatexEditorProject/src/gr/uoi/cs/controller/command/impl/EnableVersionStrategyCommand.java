@@ -21,7 +21,7 @@ public class EnableVersionStrategyCommand implements Command {
 	public void execute() {
 		EditorView editorView = mainView.getEditorView();
 		Document document = editorView.getCurrentDocument();
-		editorView.getDisableStrategyButton().setEnabled(true);
+		editorView.getDisableVersionStrategyButton().setEnabled(true);
 		editorView.getRollbackButton().setEnabled(true);
 		String versionStrategyId = getVersionStrategyIdAccordingToWhichButtonIsSelected();
 		boolean wasEnabled = versionsManager.isEnabled();
@@ -38,12 +38,12 @@ public class EnableVersionStrategyCommand implements Command {
 
 	private String getVersionStrategyIdAccordingToWhichButtonIsSelected() {
 		EditorView editorView = mainView.getEditorView();
-		if (editorView.getVolatileStrategyButton().isSelected()) {
-			editorView.getStableStrategyButton().setSelected(false);
+		if (editorView.getVolatileVersionStrategyButton().isSelected()) {
+			editorView.getStableVersionStrategyButton().setSelected(false);
 			return VersionsStrategy.VOLATILE;
 		}
-		if (editorView.getStableStrategyButton().isSelected()) {
-			editorView.getVolatileStrategyButton().setSelected(false);
+		if (editorView.getStableVersionStrategyButton().isSelected()) {
+			editorView.getVolatileVersionStrategyButton().setSelected(false);
 			return VersionsStrategy.STABLE;
 		}
 		return null;

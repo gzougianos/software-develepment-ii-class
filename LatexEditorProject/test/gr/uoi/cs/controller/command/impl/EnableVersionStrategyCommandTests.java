@@ -23,7 +23,7 @@ public class EnableVersionStrategyCommandTests {
 		Document document = new DocumentManager().createDocument(DocumentType.ARTICLE);
 		view.getEditorView().setCurrentDocument(document);
 
-		view.getEditorView().getVolatileStrategyButton().setSelected(true);
+		view.getEditorView().getVolatileVersionStrategyButton().setSelected(true);
 		EnableVersionStrategyCommand command = new EnableVersionStrategyCommand(manager, view);
 		command.execute();
 		assertTrue(manager.isEnabled());
