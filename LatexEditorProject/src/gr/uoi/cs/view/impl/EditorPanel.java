@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
 import javax.swing.text.JTextComponent;
 
 import gr.uoi.cs.model.Document;
@@ -107,15 +108,18 @@ public class EditorPanel extends JPanel implements EditorView {
 	private JMenu createFileMenu() {
 		JMenu menu = new JMenu("File");
 		newFileButton = new JMenuItem("New file");
+		((JMenuItem) newFileButton).setAccelerator(KeyStroke.getKeyStroke("control O"));
 		menu.add(newFileButton);
 
 		saveFileButton = new JMenuItem("Save");
+		((JMenuItem) saveFileButton).setAccelerator(KeyStroke.getKeyStroke("control S"));
 		menu.add(saveFileButton);
 
 		loadFileButton = new JMenuItem("Load");
 		menu.add(loadFileButton);
 
 		exitButton = new JMenuItem("Exit");
+		((JMenuItem) exitButton).setAccelerator(KeyStroke.getKeyStroke("alt F4"));
 		menu.add(exitButton);
 		return menu;
 	}
