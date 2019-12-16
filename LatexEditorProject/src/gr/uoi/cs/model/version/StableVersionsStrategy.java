@@ -35,8 +35,7 @@ public class StableVersionsStrategy implements VersionsStrategy {
 
 	@Override
 	public void putVersion(Document document, final int versionId) {
-		int currentVersion = document.getVersionId();
-		String fileName = nameDocumentVersion(document, currentVersion);
+		String fileName = nameDocumentVersion(document, versionId);
 		File file = new File(versionsDirectory, fileName);
 		try {
 			saveDocument(file, document);
