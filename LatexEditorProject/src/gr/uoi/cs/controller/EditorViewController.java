@@ -44,14 +44,11 @@ public class EditorViewController implements DocumentListener {
 	}
 
 	private void documentChanged(PropertyChangeEvent event) {
-		System.out.println("DOC CHANGED");
 		Document newDocument = (Document) event.getNewValue();
 		editorView.clearEncryptionSelection();
 		if (newDocument.isEncrypted()) {
-			System.out.println(newDocument.getEncryptionAlgorithm());
 			switch (newDocument.getEncryptionAlgorithm()) {
 				case EncryptionStrategy.ATBASH:
-					System.out.println("hiiii");
 					editorView.getAtbashEncryptionStrategyButton().setSelected(true);
 					break;
 				case EncryptionStrategy.ROT_13:
