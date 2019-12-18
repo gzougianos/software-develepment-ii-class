@@ -22,7 +22,7 @@ import gr.uoi.cs.model.encryption.EncryptionStrategy;
 import gr.uoi.cs.view.EditorView;
 
 public class EditorViewController implements DocumentListener {
-	private static final int ATTEMPT_TO_KEEP_VERSION_AFTER_EDIT_MS = 250;
+	private static final int COMMIT_TIMER_DELAY = 250;
 	private EditorView editorView;
 	private CommandFactory commandFactory;
 	private Timer keepVersionTimer;
@@ -95,7 +95,7 @@ public class EditorViewController implements DocumentListener {
 	}
 
 	private void initKeepVersionTimer() {
-		keepVersionTimer = new Timer(ATTEMPT_TO_KEEP_VERSION_AFTER_EDIT_MS, e -> {
+		keepVersionTimer = new Timer(COMMIT_TIMER_DELAY, e -> {
 			commandFactory.createCommand(Command.COMMIT_VERSION).execute();
 		});
 		keepVersionTimer.setRepeats(false);
